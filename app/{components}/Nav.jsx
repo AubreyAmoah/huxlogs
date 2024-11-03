@@ -15,20 +15,29 @@ const Nav = () => {
     <>
       {" "}
       <nav
-        className={`flex justify-between items-center font-bold max-[800px]:hidden ${
+        className={`sticky top-0 left-0 flex justify-between items-center font-bold max-[800px]:hidden ${
           dark ? "text-zinc-50" : "text-black"
         }`}
       >
-        <Link href={`/`}>
+        {dark ? (
           <Image
             className="dark:invert"
-            src="/next.svg"
-            alt="Next.js logo"
-            width={100}
-            height={38}
+            src="/three.svg"
+            alt="App logo"
+            width={200}
+            height={58}
             priority
           />
-        </Link>
+        ) : (
+          <Image
+            className="dark:invert"
+            src="/two.svg"
+            alt="App logo"
+            width={200}
+            height={58}
+            priority
+          />
+        )}
 
         <div className="flex gap-10 items-center">
           <Link href={`/`}>Home</Link>
@@ -43,7 +52,7 @@ const Nav = () => {
             className={`${
               dark
                 ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black"
-                : "rounded-md border border-indigo-400 text-indigo-400 bg-transparent px-4 py-3 hover:bg-indigo-400 hover:text-zinc-50 hover:border-zinc-50"
+                : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
             }`}
             href={`/pages/dashboard`}
           >
@@ -88,16 +97,25 @@ const Nav = () => {
               : "hidden"
           }`}
         >
-          <Link href={`/`}>
+          {dark ? (
             <Image
               className="dark:invert"
-              src="/next.svg"
-              alt="Next.js logo"
-              width={100}
-              height={38}
+              src="/three.svg"
+              alt="App logo"
+              width={200}
+              height={58}
               priority
             />
-          </Link>
+          ) : (
+            <Image
+              className="dark:invert"
+              src="/two.svg"
+              alt="App logo"
+              width={200}
+              height={58}
+              priority
+            />
+          )}
 
           <div className="flex flex-col gap-10 items-center">
             <Link href={`/`}>Home</Link>
@@ -112,7 +130,7 @@ const Nav = () => {
               className={`${
                 dark
                   ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black"
-                  : "rounded-md border border-indigo-400 text-indigo-400 bg-transparent px-4 py-3 hover:bg-indigo-400 hover:text-zinc-50 hover:border-zinc-50"
+                  : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
               }`}
               href={`/pages/dashboard`}
             >
