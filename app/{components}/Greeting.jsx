@@ -29,7 +29,7 @@ const Greeting = () => {
 
         <Link
           className={`${dark ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black":"rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"}`}
-          href={`/dashboard`}
+          href={`/pages/dashboard`}
         >
           Launch App
         </Link>
