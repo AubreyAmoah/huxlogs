@@ -12,7 +12,7 @@ const Greeting = () => {
           dark ? "text-zinc-50" : "text-black"
         }`}
       >
-        <h1 className="text-8xl font-bold mb-6 max-[890px]:text-6xl max-[800px]:text-4xl max-[500px]:text-2xl">
+        <h1 className="text-6xl font-bold mb-6 max-[890px]:text-4xl max-[800px]:text-2xl max-[500px]:text-xl">
           <span className={`${dark ? "text-violet-600" : "text-blue-400"}`}>
             Comprehensive Platform
           </span>{" "}
@@ -28,7 +28,11 @@ const Greeting = () => {
         </p>
 
         <Link
-          className={`${dark ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black":"rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"}`}
+          className={`${
+            dark
+              ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black"
+              : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
+          }`}
           href={`/pages/dashboard`}
         >
           Launch App

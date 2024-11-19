@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-const dashboard = () => {
+const Dashboard = () => {
   const { dark } = React.useContext(ThemeContext);
   const { user, authLoading, authError } = React.useContext(AuthContext);
 
@@ -69,4 +69,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

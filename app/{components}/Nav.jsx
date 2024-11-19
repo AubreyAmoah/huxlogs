@@ -16,23 +16,23 @@ const Nav = () => {
       {" "}
       <nav
         className={`sticky top-0 left-0 flex justify-between items-center font-bold max-[800px]:hidden ${
-          dark ? "text-zinc-50" : "text-black"
+          dark ? "text-zinc-50 bg-black " : "text-black bg-zinc-50"
         }`}
       >
         {dark ? (
           <Image
             src="/three.png"
             alt="App logo"
-            width={200}
-            height={58}
+            width={150}
+            height={0}
             priority
           />
         ) : (
           <Image
             src="/two.png"
             alt="App logo"
-            width={200}
-            height={58}
+            width={150}
+            height={0}
             priority
           />
         )}
