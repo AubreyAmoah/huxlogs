@@ -21,8 +21,7 @@ const Nav = () => {
       >
         {dark ? (
           <Image
-            className="dark:invert"
-            src="/three.svg"
+            src="/three.png"
             alt="App logo"
             width={200}
             height={58}
@@ -30,8 +29,7 @@ const Nav = () => {
           />
         ) : (
           <Image
-            className="dark:invert"
-            src="/two.svg"
+            src="/two.png"
             alt="App logo"
             width={200}
             height={58}
@@ -99,8 +97,7 @@ const Nav = () => {
         >
           {dark ? (
             <Image
-              className="dark:invert"
-              src="/three.svg"
+              src="/three.png"
               alt="App logo"
               width={200}
               height={58}
@@ -108,8 +105,7 @@ const Nav = () => {
             />
           ) : (
             <Image
-              className="dark:invert"
-              src="/two.svg"
+              src="/two.png"
               alt="App logo"
               width={200}
               height={58}

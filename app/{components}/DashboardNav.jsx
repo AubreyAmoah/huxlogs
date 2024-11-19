@@ -23,7 +23,6 @@ const DashboardNav = ({ email, name, image }) => {
       >
         {dark ? (
           <Image
-            className="dark:invert"
             src="/three.svg"
             alt="App logo"
             width={200}
@@ -32,7 +31,6 @@ const DashboardNav = ({ email, name, image }) => {
           />
         ) : (
           <Image
-            className="dark:invert"
             src="/two.svg"
             alt="App logo"
             width={200}
@@ -94,7 +92,6 @@ const DashboardNav = ({ email, name, image }) => {
         >
           {dark ? (
             <Image
-              className="dark:invert"
               src="/three.svg"
               alt="App logo"
               width={200}
@@ -103,7 +100,6 @@ const DashboardNav = ({ email, name, image }) => {
             />
           ) : (
             <Image
-              className="dark:invert"
               src="/two.svg"
               alt="App logo"
               width={200}

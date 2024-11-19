@@ -1,7 +1,9 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
+import ThemeToggler from "./{components}/ThemeToggler";
+import { AuthProvider } from "@/app/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,9 +27,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <UserProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </UserProvider>
+        <Toaster />
+        <ThemeProvider>
+          <AuthProvider>
+            <ThemeToggler />
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

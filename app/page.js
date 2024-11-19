@@ -3,7 +3,6 @@ import Nav from "./{components}/Nav";
 import Greeting from "./{components}/Greeting";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
-import ThemeToggler from "./{components}/ThemeToggler";
 
 export default function Home() {
   const { dark } = useContext(ThemeContext);
@@ -14,7 +13,6 @@ export default function Home() {
       }`}
     >
       <Nav />
-      <ThemeToggler />
       <Greeting />
     </div>
   );
