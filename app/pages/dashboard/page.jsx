@@ -9,6 +9,7 @@ import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import Image from "next/image";
 
 const Dashboard = () => {
   const { dark } = React.useContext(ThemeContext);
@@ -56,7 +57,28 @@ const Dashboard = () => {
     >
       <ThemeToggler />
       {authError ? (
-        <Signin />
+        <>
+          <Link href={"/"} className=" absolute top-2 left-2">
+            {dark ? (
+              <Image
+                src="/three.png"
+                alt="App logo"
+                width={120}
+                height={0}
+                priority
+              />
+            ) : (
+              <Image
+                src="/two.png"
+                alt="App logo"
+                width={120}
+                height={0}
+                priority
+              />
+            )}
+          </Link>
+          <Signin />
+        </>
       ) : (
         <>
           <DashboardNav />
