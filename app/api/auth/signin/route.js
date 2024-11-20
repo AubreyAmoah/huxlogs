@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import argon from "argon2";
 import jwt from "jsonwebtoken";
 import clientPromise from "@/app/lib/mongodb";
+import { sendEmail } from "@/app/helpers/mailer";
 
 export async function POST(req) {
   try {
@@ -37,22 +38,18 @@ export async function POST(req) {
       );
     }
 
-    const tokenData = {
-      id: user._id,
-      email: user.email,
-    };
-
-    const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {
-      expiresIn: "1d",
+    await sendEmail({
+      email,
+      emailType: "OTP",
+      userId: user._id,
     });
 
-    const res = NextResponse.json({
-      message: "Login successful",
-    });
-
-    res.cookies.set("token", token, {
-      httpOnly: true,
-    });
+    const res = NextResponse.json(
+      {
+        message: "User found, OTP sent to your mail",
+      },
+      { status: 200 }
+    );
 
     return res;
   } catch (error) {

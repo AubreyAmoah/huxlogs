@@ -2,13 +2,13 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
-// import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  //   const router = useRouter();
-  //   const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
   const [user, setUser] = useState({});
   const [authLoading, setAuthLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
@@ -16,6 +16,17 @@ export const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState(null);
   const [loginError, setLoginError] = useState(null);
   const [signUpError, setSignUpError] = useState(null);
+
+  const onLogout = async () => {
+    try {
+      await axios.get("/api/auth/logout");
+      toast.success("Logout Success!");
+      return router.push("/");
+    } catch (error) {
+      console.error(error);
+      return toast.error(error?.response?.data?.error | "An error occurred");
+    }
+  };
   const getUser = async () => {
     try {
       setAuthLoading(true);
@@ -39,8 +50,27 @@ export const AuthProvider = ({ children }) => {
       setLoginLoading(true);
       const res = await axios.post("/api/auth/signin", user);
 
-      if (res.status === 200) toast.success("Login sucessful");
-      getUser();
+      if (res.status === 200) toast.success(res.data.message);
+      router.push("/pages/otp");
+    } catch (error) {
+      setLoginError(error);
+      console.error(error.response.data || error);
+      return toast.error(error.response.data.error || "An error occurred");
+    } finally {
+      setLoginLoading(false);
+    }
+  };
+
+  const validateLogin = async (otpToken) => {
+    try {
+      setLoginLoading(true);
+      const res = await axios.post("/api/auth/validatesignin", {
+        otpToken: Number(otpToken),
+      });
+
+      if (res.status === 200)
+        toast.success("Validation succesful redirecting you to dashboard");
+      router.push("/pages/dashboard");
     } catch (error) {
       setLoginError(error);
       console.error(error.response.data || error);
@@ -80,6 +110,8 @@ export const AuthProvider = ({ children }) => {
         signUpLoading,
         onLogin,
         onSignup,
+        onLogout,
+        validateLogin,
         authError,
       }}
     >

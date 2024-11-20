@@ -13,7 +13,8 @@ import Image from "next/image";
 
 const Dashboard = () => {
   const { dark } = React.useContext(ThemeContext);
-  const { user, authLoading, authError } = React.useContext(AuthContext);
+  const { user, authLoading, authError, onLogout } =
+    React.useContext(AuthContext);
 
   if (authLoading)
     return (
@@ -84,7 +85,7 @@ const Dashboard = () => {
           <DashboardNav />
           <h2>{user.email}</h2>
           <p>{user.email}</p>
-          <Link href="/api/auth/logout">Logout</Link>
+          <button onClick={onLogout}>Logout</button>
         </>
       )}
     </div>

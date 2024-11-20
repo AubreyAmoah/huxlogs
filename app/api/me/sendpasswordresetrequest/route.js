@@ -31,6 +31,7 @@ export async function POST(req) {
 
     await sendEmail({
       email,
+      emailType: "RESET",
       userId: user._id,
     });
 

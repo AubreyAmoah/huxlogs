@@ -31,7 +31,7 @@ const Signin = () => {
         in massive numbers.{" "}
         <Link
           className={`${dark ? "text-violet-600" : "text-blue-400"}`}
-          href={""}
+          href={"huxlogs.com"}
         >
           huxlogs.com
         </Link>{" "}
