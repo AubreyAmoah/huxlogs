@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const getUser = async () => {
     try {
       setAuthLoading(true);
-      const res = await axios.get(`${APIDOMAIN}/api/users/auth/me`);
+      const res = await axios.get("/api/me");
 
       //   if (!res.data || !pathname.startsWith("/pages/reset")) {
       //     router.push("/");
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   const onLogin = async (user) => {
     try {
       setLoginLoading(true);
-      const res = await axios.post(`${APIDOMAIN}/api/users/auth/signin`, user);
+      const res = await axios.post("/api/auth/signin", user);
 
       if (res.status === 200) toast.success("Login sucessful");
       getUser();
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
   const onSignup = async (user) => {
     try {
       setSignUpLoading(true);
-      const res = await axios.post(`${APIDOMAIN}/api/users/auth/signup`, user);
+      const res = await axios.post("/api/auth/signup", user);
 
       if (res.status === 201) {
         toast.success("SignUp sucessful");
