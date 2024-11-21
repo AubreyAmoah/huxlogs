@@ -31,13 +31,8 @@ export const AuthProvider = ({ children }) => {
     try {
       setAuthLoading(true);
       const res = await axios.get("/api/me");
-
-      //   if (!res.data || !pathname.startsWith("/pages/reset")) {
-      //     router.push("/");
-      //   }
       return setUser(res.data);
     } catch (error) {
-      //   if (!pathname.startsWith("/pages/reset")) router.push("/");
       setAuthError(error);
       console.log(error);
     } finally {
@@ -70,6 +65,7 @@ export const AuthProvider = ({ children }) => {
 
       if (res.status === 200)
         toast.success("Validation succesful redirecting you to dashboard");
+      getUser();
       router.push("/pages/dashboard");
     } catch (error) {
       setLoginError(error);

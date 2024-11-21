@@ -61,7 +61,7 @@ const OTP = () => {
 
   return (
     <div
-      className={`relative flex flex-col gap-4 items-center justify-center min-h-screen w-screen px-8 ${
+      className={`relative flex flex-col gap-4 items-center justify-center min-h-screen w-screen px-8 max-[600px]:justify-start ${
         dark ? `bg-black` : `bg-zinc-50`
       }`}
     >
@@ -91,7 +91,7 @@ const OTP = () => {
             icon={faSpinner}
             className={`${
               dark ? "text-violet-600" : " text-blue-400"
-            } animate-spin text-7xl`}
+            } animate-spin text-7xl max-[600px]:mt-24`}
           />
           <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
             Loading...
@@ -100,11 +100,13 @@ const OTP = () => {
       ) : (
         <>
           <h1
-            className={`${dark ? "text-violet-600" : "text-blue-400"} text-2xl`}
+            className={`${
+              dark ? "text-violet-600" : "text-blue-400"
+            } text-2xl max-[600px]:mt-24`}
           >
             ENTER YOUR OTP
           </h1>
-          <div className="flex gap-6">
+          <div className="flex gap-6 max-[280px]:gap-2 max-[230px]:flex-col">
             {otpInputs.map((value, index) => (
               <input
                 key={index}
@@ -118,7 +120,7 @@ const OTP = () => {
                   dark
                     ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
                     : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
-                } p-4 text-7xl text-center w-[100px] h-[100px] rounded-sm shadow-sm`}
+                } p-4 text-7xl text-center w-[100px] h-[100px] rounded-sm shadow-sm max-[500px]:w-[80px] max-[500px]:h-[80px] max-[500px]:text-5xl max-[410px]:w-[50px] max-[410px]:h-[50px] max-[410px]:text-3xl`}
                 maxLength={1}
                 required
               />
@@ -131,7 +133,7 @@ const OTP = () => {
               dark
                 ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black"
                 : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50"
-            } w-[500px]`}
+            } w-[500px] max-[500px]:w-screen`}
           >
             Validate
           </button>

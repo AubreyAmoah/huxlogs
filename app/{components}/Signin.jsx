@@ -14,7 +14,7 @@ const Signin = () => {
   });
   const [isSignup, setIsSignup] = React.useState(false);
   return (
-    <div className="flex flex-col items-center gap-6 w-[500px] ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:w-full max-[600px]:shadow-none max-[600px]:rounded-none max-[600px]:h-full max-[600px]:p-2 max-[500px]:p-0">
+    <div className="flex flex-col items-center gap-6 w-[500px] h-[600px] mt-6 ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:w-full max-[600px]:shadow-none max-[600px]:rounded-none max-[600px]:h-full max-[600px]:p-2 max-[500px]:p-0">
       {dark ? (
         <Image
           src="/three.png"
@@ -31,7 +31,7 @@ const Signin = () => {
         in massive numbers.{" "}
         <Link
           className={`${dark ? "text-violet-600" : "text-blue-400"}`}
-          href={"huxlogs.com"}
+          href={"https://www.huxlogs.com/"}
         >
           huxlogs.com
         </Link>{" "}
@@ -105,7 +105,7 @@ const Signin = () => {
             className={`${
               dark ? "text-violet-700" : "text-blue-600"
             } italic text-sm mt-4`}
-            href={`/pages/reset`}
+            href={`/pages/forgotpassword`}
           >
             forgot password?
           </Link>

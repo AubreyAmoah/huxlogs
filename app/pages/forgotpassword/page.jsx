@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const { dark } = useContext(ThemeContext);
@@ -13,20 +15,26 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    // Simulate API call
-    setTimeout(() => {
+  const sendPasswordRequest = async () => {
+    if (!email) {
+      return toast.error("Please provide an email");
+    }
+    try {
+      setLoading(true);
+      await axios.post("/api/me/sendpasswordresetrequest", { email: email });
+      toast.success("Request sent, check your mail");
+      setMessage("Password reset link sent!!");
+    } catch (error) {
+      console.error(error.response.data || error);
+      return toast.error(error.response.data.error || "An error occurred");
+    } finally {
       setLoading(false);
-      setMessage("A password reset link has been sent to your email.");
-    }, 2000);
+    }
   };
 
   return (
     <div
-      className={`relative flex flex-col gap-6 items-center justify-center min-h-screen w-screen px-8 ${
+      className={`relative flex flex-col gap-6 items-center justify-center min-h-screen w-screen px-8 max-[600px]:justify-start max-[364px]:px-1 ${
         dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black"
       }`}
     >
@@ -53,7 +61,7 @@ const ForgotPassword = () => {
       <h1
         className={`${
           dark ? "text-violet-600" : "text-blue-400"
-        } text-2xl max-[526px]:mt-20`}
+        } text-2xl max-[600px]:mt-24`}
       >
         Forgot Your Password?
       </h1>
@@ -62,8 +70,7 @@ const ForgotPassword = () => {
         password.
       </p>
 
-      <form
-        onSubmit={handleSubmit}
+      <div
         className="flex flex-col items-center gap-4 w-full max-w-md"
       >
         <input
@@ -80,7 +87,7 @@ const ForgotPassword = () => {
         />
 
         <button
-          type="submit"
+          onClick={sendPasswordRequest}
           className={`w-full rounded-md px-4 py-3 ${
             dark
               ? "border border-violet-600 text-violet-600 bg-transparent hover:bg-violet-600 hover:text-black hover:border-black"
@@ -94,7 +101,7 @@ const ForgotPassword = () => {
             "Send Reset Link"
           )}
         </button>
-      </form>
+      </div>
 
       {message && (
         <p

@@ -70,7 +70,7 @@ export const sendEmail = async ({ email, emailType, userId }) => {
         emailType === "OTP"
           ? `<p>Copy and paste the four digit number in the boxes provided, ignore this if it's not you</p>
            <h1>${randomNumber}</h1>`
-          : `<p>Click here <a href=${process.env.Domain}/pages/reset/passwordreset?token=${hashToken}>here</a> to reset your password</p>`
+          : `<p>Click here <a href=${process.env.Domain}/pages/resetpassword?token=${hashToken}>here</a> to reset your password</p>`
       }`,
     };
 
