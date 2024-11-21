@@ -1,45 +1,71 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Signin from "@/app/{components}/Signin";
+import React from "react";
+import { useContext, useState, useRef } from "react";
 import { ThemeContext } from "@/app/context/ThemeContext";
-import ThemeToggler from "@/app/{components}/ThemeToggler";
 import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 
 const OTP = () => {
-  const { dark } = React.useContext(ThemeContext);
-  const { validateLogin, loginLoading } = React.useContext(AuthContext);
+  const { dark } = useContext(ThemeContext);
+  const { validateLogin, loginLoading } = useContext(AuthContext);
 
-  const [input1, setInput1] = React.useState("");
-  const [input2, setInput2] = React.useState("");
-  const [input3, setInput3] = React.useState("");
-  const [input4, setInput4] = React.useState("");
+  const [otpInputs, setOtpInputs] = useState(["", "", "", ""]);
+  const inputRefs = useRef([]); // To keep track of input refs
 
-  const [finalInput, setFinalInput] = React.useState("");
+  // Handle change for individual inputs
+  const handleInputChange = (value, index) => {
+    const updatedInputs = [...otpInputs];
+    updatedInputs[index] = value.slice(0, 1); // Ensure only 1 character is entered
+    setOtpInputs(updatedInputs);
 
-  const addInputs = () => {
-    const total = input1 + input2 + input3 + input4;
-   
-    setFinalInput(total);
+    // Move to next input if a character is entered
+    if (value && index < otpInputs.length - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
   };
 
-  const otpValidation = () => {
-    addInputs();
-    if (finalInput.length >= 4) validateLogin(finalInput);
+  // Handle backspace for navigating to the previous input
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !otpInputs[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  // Handle paste event
+  const handlePaste = (e) => {
+    const pastedData = e.clipboardData.getData("text").slice(0, 4); // Limit to 4 characters
+    const updatedInputs = [...otpInputs];
+
+    for (let i = 0; i < pastedData.length; i++) {
+      updatedInputs[i] = pastedData[i];
+    }
+    setOtpInputs(updatedInputs);
+
+    // Automatically move focus to the next empty input
+    const filledIndex = pastedData.length - 1;
+    if (filledIndex < otpInputs.length - 1) {
+      inputRefs.current[filledIndex + 1]?.focus();
+    }
+    e.preventDefault(); // Prevent default paste behavior
+  };
+
+  // Combine inputs into a single string
+  const validateOtp = () => {
+    const otp = otpInputs.join("");
+    if (otp.length === 4) validateLogin(otp);
   };
 
   return (
     <div
-      className={`relative flex flex-col gap-4 items-center justify-center max-[526px]:justify-start min-h-screen w-screen px-8 max-[800px]:px-16 max-[500px]:px-10 ${
+      className={`relative flex flex-col gap-4 items-center justify-center min-h-screen w-screen px-8 ${
         dark ? `bg-black` : `bg-zinc-50`
       }`}
     >
-      <ThemeToggler />
-      <Link href={"/"} className=" absolute top-2 left-2">
+      <Link href={"/"} className="absolute top-2 left-2">
         {dark ? (
           <Image
             src="/three.png"
@@ -65,7 +91,7 @@ const OTP = () => {
             icon={faSpinner}
             className={`${
               dark ? "text-violet-600" : " text-blue-400"
-            } animate-spin text-8xl`}
+            } animate-spin text-7xl`}
           />
           <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
             Loading...
@@ -74,78 +100,38 @@ const OTP = () => {
       ) : (
         <>
           <h1
-            className={`${
-              dark ? "text-violet-600" : "text-blue-400"
-            } text-2xl max-[526px]:mt-20 max-[300px]:text-xl max-[300px]:text-base`}
+            className={`${dark ? "text-violet-600" : "text-blue-400"} text-2xl`}
           >
             ENTER YOUR OTP
           </h1>
-          <div className="flex gap-6 max-[300px]:gap-2">
-            <input
-              onChange={(e) => setInput1(e.target.value)}
-              className={`${
-                dark
-                  ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
-                  : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
-              } p-4 max-[300px]:p-0 text-8xl max-[526px]:text-4xl max-[310px]:text-sm text-center w-[100px] h-[100px] max-[526px]:w-[50px] max-[526px]:h-[50px] max-[300px]:w-[40px] max-[300px]:h-[40px] rounded-sm shadow-sm`}
-              type="text"
-              name="input1"
-              id="input1"
-              maxLength={1}
-              required
-            />
-            <input
-              onChange={(e) => setInput2(e.target.value)}
-              className={`${
-                dark
-                  ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
-                  : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
-              } p-4 max-[300px]:p-0 text-8xl max-[526px]:text-4xl max-[310px]:text-sm text-center w-[100px] h-[100px] max-[526px]:w-[50px] max-[526px]:h-[50px] max-[300px]:w-[40px] max-[300px]:h-[40px] rounded-sm shadow-sm`}
-              type="text"
-              name="input2"
-              id="input2"
-              maxLength={1}
-              required
-            />
-            <input
-              onChange={(e) => setInput3(e.target.value)}
-              className={`${
-                dark
-                  ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
-                  : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
-              } p-4 max-[300px]:p-0 text-8xl max-[526px]:text-4xl max-[310px]:text-sm text-center w-[100px] h-[100px] max-[526px]:w-[50px] max-[526px]:h-[50px] max-[300px]:w-[40px] max-[300px]:h-[40px] rounded-sm shadow-sm`}
-              type="text"
-              name="input3"
-              id="input3"
-              maxLength={1}
-              required
-            />
-            <input
-              onChange={(e) => setInput4(e.target.value)}
-              className={`${
-                dark
-                  ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
-                  : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
-              } p-4 max-[300px]:p-0 text-8xl max-[526px]:text-4xl max-[310px]:text-sm text-center w-[100px] h-[100px] max-[526px]:w-[50px] max-[526px]:h-[50px] max-[300px]:w-[40px] max-[300px]:h-[40px] rounded-sm shadow-sm`}
-              type="text"
-              name="input4"
-              id="input4"
-              maxLength={1}
-              required
-            />
+          <div className="flex gap-6">
+            {otpInputs.map((value, index) => (
+              <input
+                key={index}
+                ref={(el) => (inputRefs.current[index] = el)} // Assign ref to each input
+                type="text"
+                value={value}
+                onChange={(e) => handleInputChange(e.target.value, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                onPaste={index === 0 ? handlePaste : null} // Handle paste only on the first input
+                className={`${
+                  dark
+                    ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
+                    : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
+                } p-4 text-7xl text-center w-[100px] h-[100px] rounded-sm shadow-sm`}
+                maxLength={1}
+                required
+              />
+            ))}
           </div>
 
-          <p className="mb-6 max-[500px]:text-sm max-[300px]:text-xs text-black">
-            Please check your mail for your otp.
-          </p>
-
           <button
-            onClick={otpValidation}
+            onClick={validateOtp}
             className={`${
               dark
-                ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black"
-                : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
-            } w-[500px] max-[500px]:w-full`}
+                ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black"
+                : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50"
+            } w-[500px]`}
           >
             Validate
           </button>
