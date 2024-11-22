@@ -3,8 +3,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeContext } from "../context/ThemeContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Nav = () => {
+  const { user, authError } = React.useContext(AuthContext);
   const { dark } = React.useContext(ThemeContext);
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -52,7 +54,7 @@ const Nav = () => {
                 ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black"
                 : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
             }`}
-            href={`/pages/dashboard`}
+            href={!user || authError ? `/pages/signin` : `/pages/dashboard`}
           >
             Launch App
           </Link>
@@ -128,7 +130,7 @@ const Nav = () => {
                   ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black"
                   : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
               }`}
-              href={`/pages/dashboard`}
+              href={!user || authError ? `/pages/signin` : `/pages/dashboard`}
             >
               Launch App
             </Link>

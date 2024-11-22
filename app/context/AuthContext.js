@@ -31,8 +31,15 @@ export const AuthProvider = ({ children }) => {
     try {
       setAuthLoading(true);
       const res = await axios.get("/api/me");
+
+      if (!res.data && pathname.startsWith("/pages/dashboard")) {
+        router.push("/pages/signin");
+      }
       return setUser(res.data);
     } catch (error) {
+      if (pathname.startsWith("/pages/dashboard")) {
+        router.push("/pages/signin");
+      }
       setAuthError(error);
       console.log(error);
     } finally {

@@ -4,15 +4,57 @@ import Image from "next/image";
 import Link from "next/link";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const Signin = () => {
   const { dark } = React.useContext(ThemeContext);
-  const { onLogin, onSignup } = React.useContext(AuthContext);
+  const { onLogin, onSignup, loginLoading, authLoading } =
+    React.useContext(AuthContext);
   const [user, setUser] = React.useState({
     email: "",
     password: "",
   });
   const [isSignup, setIsSignup] = React.useState(false);
+
+  if (authLoading)
+    return (
+      <div
+        className={`${
+          dark ? `bg-black` : `bg-zinc-50`
+        } h-screen flex flex-col items-center justify-center`}
+      >
+        <FontAwesomeIcon
+          icon={faSpinner}
+          className={`${
+            dark ? "text-violet-600" : " text-blue-400"
+          } animate-spin text-8xl`}
+        />
+        <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
+          Loading...
+        </span>
+      </div>
+    );
+
+  if (loginLoading)
+    return (
+      <div
+        className={`${
+          dark ? `bg-black` : `bg-zinc-50`
+        } h-screen flex flex-col items-center justify-center`}
+      >
+        <FontAwesomeIcon
+          icon={faSpinner}
+          className={`${
+            dark ? "text-violet-600" : " text-blue-400"
+          } animate-spin text-8xl`}
+        />
+        <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
+          Loading...
+        </span>
+      </div>
+    );
+
   return (
     <div className="flex flex-col items-center gap-6 w-[500px] h-[600px] mt-6 ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:w-full max-[600px]:shadow-none max-[600px]:rounded-none max-[600px]:h-full max-[600px]:p-2 max-[500px]:p-0">
       {dark ? (

@@ -15,20 +15,53 @@ import {
   faCog,
   faBars,
   faRightFromBracket,
+  faList,
+  faCaretDown,
+  faCaretUp,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  getCategories,
+  getProducts,
+  getSubCategories,
+} from "@/app/calls/apiCalls";
 
 const Dashboard = () => {
   const { dark } = React.useContext(ThemeContext);
   const { user, authLoading, authError, onLogout } =
     React.useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeSubCategory, setActiveSubCategory] = useState(null);
+  const [categoryDropdown, setCategoryDropdown] = useState(false); // For toggling category dropdown
+  const [subCategoryDropdown, setSubCategoryDropdown] = useState(false); // For toggling subcategory dropdown
+
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+  useEffect(() => {
+    getCategories(setCategories);
+  }, []);
+
+  useEffect(() => {
+    if (activeCategory) {
+      getSubCategories(activeCategory, setSubCategories);
+      setSubCategoryDropdown(false); // Reset subcategory dropdown when new category is selected
+    }
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (activeSubCategory) {
+      getProducts(activeSubCategory, setProducts);
+    }
+  }, [activeSubCategory]);
 
   const menuItems = [
     { label: "Home", icon: faHome, link: "/home" },
-    { label: "Analytics", icon: faChartBar, link: "/analytics" },
+    { label: "Categories", icon: faList },
     { label: "Settings", icon: faCog, link: "/settings" },
     { label: "Logout", icon: faRightFromBracket, onClick: onLogout },
   ];
@@ -51,75 +84,34 @@ const Dashboard = () => {
         </span>
       </div>
     );
-  // if (authError)
-  //   return (
-  //     <div
-  //       className={`${
-  //         dark ? `bg-black` : `bg-zinc-50`
-  //       } h-screen flex flex-col items-center justify-center`}
-  //     >
-  //       <FontAwesomeIcon
-  //         icon={faWarning}
-  //         className="text-red-600 text-8xl animate-pulse"
-  //       />
-  //       <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
-  //         {authError.message}
-  //       </span>
-  //     </div>
-  //   );
 
-  if (!user || authError) {
-    return (
-      <div
-        className={`${
-          dark ? `bg-black` : `bg-zinc-50`
-        } h-screen flex flex-col items-center justify-center`}
-      >
-        <Link href={"/"} className=" absolute top-2 left-2">
-          {dark ? (
-            <Image
-              src="/three.png"
-              alt="App logo"
-              width={120}
-              height={0}
-              priority
-            />
-          ) : (
-            <Image
-              src="/two.png"
-              alt="App logo"
-              width={120}
-              height={0}
-              priority
-            />
-          )}
-        </Link>
-        <Signin />
-      </div>
-    );
-  }
   return (
     <div
-      className={`relative flex min-h-screen ${
+      className={`relative flex min-h-screen max-[700px]:flex-col ${
         dark ? `bg-black` : `bg-zinc-50`
       }`}
     >
       <ThemeToggler />
 
+      {/* Toggle Button */}
+      <button
+        onClick={() => {
+          toggleSidebar();
+          setCategoryDropdown(false);
+        }}
+        className="absolute top-2 left-2 bg-white p-2 rounded-full shadow-md w-[40px] h-[40px]"
+      >
+        <FontAwesomeIcon icon={faBars} className="text-black" />
+      </button>
+
       {/* Sidebar */}
       <aside
-        className={`${sidebarOpen ? "w-64" : "w-16"} bg-gradient-to-b ${
+        className={`${
+          sidebarOpen ? "w-64 max-[700px]:w-full" : "w-16 max-[700px]:hidden"
+        } bg-gradient-to-b ${
           dark ? "from-violet-800 to-black" : "from-blue-300 to-blue-600"
-        } h-screen transition-all duration-300 flex flex-col items-start py-6`}
+        } h-screen overflow-auto transition-all duration-300 flex flex-col items-start py-6`}
       >
-        {/* Toggle Button */}
-        <button
-          onClick={toggleSidebar}
-          className="absolute top-2 left-2 bg-white p-2 rounded-full shadow-md w-[40px] h-[40px]"
-        >
-          <FontAwesomeIcon icon={faBars} className="text-black" />
-        </button>
-
         {/* Logo */}
         <div className="flex items-center px-4 mb-6">
           <Image
@@ -133,6 +125,93 @@ const Dashboard = () => {
         {/* Menu Items */}
         <nav className="flex-1 w-full">
           {menuItems.map((item) => {
+            if (item.label === "Categories") {
+              return (
+                <div key={item.label} className="w-full">
+                  {/* Category Dropdown Toggle */}
+                  <button
+                    onClick={() => {
+                      setCategoryDropdown(!categoryDropdown);
+                      setSidebarOpen(true);
+                    }}
+                    className={`flex items-center w-full px-4 py-3 text-lg ${
+                      dark ? "text-zinc-50" : "text-white"
+                    } hover:bg-opacity-30 hover:bg-black/10`}
+                  >
+                    <FontAwesomeIcon icon={item.icon} className="mr-3" />
+                    {sidebarOpen && (
+                      <span className="flex items-center justify-between w-full">
+                        {item.label}
+                        <FontAwesomeIcon
+                          icon={categoryDropdown ? faCaretUp : faCaretDown}
+                        />
+                      </span>
+                    )}
+                  </button>
+
+                  {/* Categories Dropdown */}
+                  {categoryDropdown && (
+                    <div className="ml-4">
+                      {categories.map((category) => (
+                        <button
+                          key={category._id}
+                          onClick={() => setActiveCategory(category.name)}
+                          className={`flex items-center w-full px-1 text-sm ${
+                            dark ? "text-zinc-50" : "text-white"
+                          }`}
+                        >
+                          <div key={item.label} className="w-full">
+                            {/* SubCategory Dropdown Toggle */}
+                            <button
+                              onClick={() => {
+                                setSubCategoryDropdown(!subCategoryDropdown);
+                                setSidebarOpen(true);
+                              }}
+                              className={`flex items-center w-full px-4 py-3 text-lg ${
+                                dark ? "text-zinc-50" : "text-white"
+                              } hover:bg-opacity-30 hover:bg-black/10`}
+                            >
+                              {sidebarOpen && (
+                                <span className="flex items-center justify-between w-full">
+                                  {category.name}
+                                  <FontAwesomeIcon
+                                    icon={
+                                      subCategoryDropdown
+                                        ? faCaretUp
+                                        : faCaretDown
+                                    }
+                                  />
+                                </span>
+                              )}
+                            </button>
+
+                            {/* SubCategories Dropdown */}
+                            {subCategoryDropdown && (
+                              <div className="ml-4">
+                                {subCategories.map((subcategory) => (
+                                  <button
+                                    key={subcategory._id}
+                                    onClick={() =>
+                                      setActiveCategory(subcategory.name)
+                                    }
+                                    className={`flex items-center w-full px-4 py-2 text-sm ${
+                                      dark ? "text-zinc-50" : "text-white"
+                                    } hover:bg-opacity-30 hover:bg-black/10`}
+                                  >
+                                    {subcategory.name}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
             if (item.label === "Logout") {
               return (
                 <button
@@ -147,9 +226,10 @@ const Dashboard = () => {
                 </button>
               );
             }
+
             return (
               <Link
-                href={item.link}
+                href={item.link || "#"}
                 key={item.label}
                 className={`flex items-center w-full px-4 py-3 text-lg ${
                   dark ? "text-zinc-50" : "text-white"
@@ -166,49 +246,25 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="flex-1 p-6">
         <header
-          className={`flex justify-between items-center mb-6 ${
+          className={`flex justify-between items-center ${
             dark ? "text-zinc-50" : "text-black"
           }`}
         >
-          <h1 className="text-2xl font-semibold">Dashboard</h1>
-          <Link
-            href="/profile"
-            className={`${
-              dark
-                ? "bg-violet-700 text-white hover:bg-violet-600"
-                : "bg-blue-400 text-white hover:bg-blue-500"
-            } px-4 py-2 rounded-md`}
-          >
-            Profile
-          </Link>
+          <h1>Dashboard</h1>
         </header>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div
-            className={`p-4 shadow-md rounded-lg ${
-              dark ? "bg-zinc-800" : "bg-white"
-            }`}
-          >
-            <h3 className="font-semibold text-lg">Analytics</h3>
-            <p>View your performance data.</p>
-          </div>
-          <div
-            className={`p-4 shadow-md rounded-lg ${
-              dark ? "bg-zinc-800" : "bg-white"
-            }`}
-          >
-            <h3 className="font-semibold text-lg">Reports</h3>
-            <p>Generate and download reports.</p>
-          </div>
-          <div
-            className={`p-4 shadow-md rounded-lg ${
-              dark ? "bg-zinc-800" : "bg-white"
-            }`}
-          >
-            <h3 className="font-semibold text-lg">Settings</h3>
-            <p>Manage your preferences.</p>
-          </div>
+        <div>
+          {/* Content for Products */}
+          {activeSubCategory && (
+            <div>
+              <h2 className="mt-6 text-lg font-bold">Products</h2>
+              <ul className="list-disc ml-6">
+                {products.map((product) => (
+                  <li key={product.id}>{product.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </main>
     </div>
