@@ -18,7 +18,7 @@ export async function POST(req) {
     const items = await db
       .collection("item")
       .find({
-        parent: subCategoryName,
+        subcategory: subCategoryName,
       })
       .toArray();
 

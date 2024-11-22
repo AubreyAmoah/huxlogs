@@ -26,21 +26,61 @@ import {
   getProducts,
   getSubCategories,
 } from "@/app/calls/apiCalls";
+import OverflowTable from "@/app/{components}/OverflowTable";
 
 const Dashboard = () => {
   const { dark } = React.useContext(ThemeContext);
   const { user, authLoading, authError, onLogout } =
     React.useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubCategory, setActiveSubCategory] = useState(null);
-  const [categoryDropdown, setCategoryDropdown] = useState(false); // For toggling category dropdown
-  const [subCategoryDropdown, setSubCategoryDropdown] = useState(false); // For toggling subcategory dropdown
+  const [categoryDropdowns, setCategoryDropdowns] = useState({}); // For managing category dropdowns
+  const [subCategoryDropdowns, setSubCategoryDropdowns] = useState({});
+
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [headers, setHeaders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+  // Toggle a specific category's dropdown
+  const toggleCategoryDropdown = (categoryId) => {
+    setCategoryDropdowns((prevState) => ({
+      ...prevState,
+      [categoryId]: !prevState[categoryId], // Toggle the specific category dropdown
+    }));
+  };
+
+  // Toggle a specific subcategory's dropdown
+  const toggleSubCategoryDropdown = (categoryId) => {
+    setSubCategoryDropdowns((prevState) => ({
+      ...prevState,
+      [categoryId]: !prevState[categoryId], // Toggle the specific subcategory dropdown
+    }));
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const onPageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
   useEffect(() => {
     getCategories(setCategories);
@@ -49,15 +89,24 @@ const Dashboard = () => {
   useEffect(() => {
     if (activeCategory) {
       getSubCategories(activeCategory, setSubCategories);
-      setSubCategoryDropdown(false); // Reset subcategory dropdown when new category is selected
+      setSubCategoryDropdowns({}); // Reset subcategory dropdown when new category is selected
     }
   }, [activeCategory]);
 
   useEffect(() => {
     if (activeSubCategory) {
-      getProducts(activeSubCategory, setProducts);
+      getProducts(activeSubCategory, setProducts, setLoading);
+
+      setFilteredData(
+        products.filter((item) =>
+          item.itemname.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+
+      // Reset to the first page when data or searchTerm changes
+      setCurrentPage(1);
     }
-  }, [activeSubCategory]);
+  }, [activeSubCategory, searchTerm]);
 
   const menuItems = [
     { label: "Home", icon: faHome, link: "/home" },
@@ -97,7 +146,7 @@ const Dashboard = () => {
       <button
         onClick={() => {
           toggleSidebar();
-          setCategoryDropdown(false);
+          setCategoryDropdowns({});
         }}
         className="absolute top-2 left-2 bg-white p-2 rounded-full shadow-md w-[40px] h-[40px]"
       >
@@ -131,7 +180,7 @@ const Dashboard = () => {
                   {/* Category Dropdown Toggle */}
                   <button
                     onClick={() => {
-                      setCategoryDropdown(!categoryDropdown);
+                      toggleCategoryDropdown(item.label);
                       setSidebarOpen(true);
                     }}
                     className={`flex items-center w-full px-4 py-3 text-lg ${
@@ -143,17 +192,21 @@ const Dashboard = () => {
                       <span className="flex items-center justify-between w-full">
                         {item.label}
                         <FontAwesomeIcon
-                          icon={categoryDropdown ? faCaretUp : faCaretDown}
+                          icon={
+                            categoryDropdowns[item.label]
+                              ? faCaretUp
+                              : faCaretDown
+                          }
                         />
                       </span>
                     )}
                   </button>
 
                   {/* Categories Dropdown */}
-                  {categoryDropdown && (
+                  {categoryDropdowns[item.label] && (
                     <div className="ml-4">
                       {categories.map((category) => (
-                        <button
+                        <div
                           key={category._id}
                           onClick={() => setActiveCategory(category.name)}
                           className={`flex items-center w-full px-1 text-sm ${
@@ -163,10 +216,9 @@ const Dashboard = () => {
                           <div key={item.label} className="w-full">
                             {/* SubCategory Dropdown Toggle */}
                             <button
-                              onClick={() => {
-                                setSubCategoryDropdown(!subCategoryDropdown);
-                                setSidebarOpen(true);
-                              }}
+                              onClick={() =>
+                                toggleSubCategoryDropdown(category._id)
+                              }
                               className={`flex items-center w-full px-4 py-3 text-lg ${
                                 dark ? "text-zinc-50" : "text-white"
                               } hover:bg-opacity-30 hover:bg-black/10`}
@@ -176,7 +228,7 @@ const Dashboard = () => {
                                   {category.name}
                                   <FontAwesomeIcon
                                     icon={
-                                      subCategoryDropdown
+                                      subCategoryDropdowns[category._id]
                                         ? faCaretUp
                                         : faCaretDown
                                     }
@@ -186,13 +238,13 @@ const Dashboard = () => {
                             </button>
 
                             {/* SubCategories Dropdown */}
-                            {subCategoryDropdown && (
+                            {subCategoryDropdowns[category._id] && (
                               <div className="ml-4">
                                 {subCategories.map((subcategory) => (
                                   <button
                                     key={subcategory._id}
                                     onClick={() =>
-                                      setActiveCategory(subcategory.name)
+                                      setActiveSubCategory(subcategory.name)
                                     }
                                     className={`flex items-center w-full px-4 py-2 text-sm ${
                                       dark ? "text-zinc-50" : "text-white"
@@ -204,7 +256,7 @@ const Dashboard = () => {
                               </div>
                             )}
                           </div>
-                        </button>
+                        </div>
                       ))}
                     </div>
                   )}
@@ -258,11 +310,15 @@ const Dashboard = () => {
           {activeSubCategory && (
             <div>
               <h2 className="mt-6 text-lg font-bold">Products</h2>
-              <ul className="list-disc ml-6">
-                {products.map((product) => (
-                  <li key={product.id}>{product.name}</li>
-                ))}
-              </ul>
+              <OverflowTable
+                dark={dark}
+                data={paginatedData}
+                headers={headers}
+                loading={loading}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={onPageChange}
+              />
             </div>
           )}
         </div>
