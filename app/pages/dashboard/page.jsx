@@ -69,6 +69,11 @@ const Dashboard = () => {
     }));
   };
 
+  const handleCategoryClick = (categoryId, categoryName) => {
+    setActiveCategory(categoryName); // First update the active category
+    toggleCategoryDropdown(categoryId); // Then toggle the dropdown
+  };
+
   // Pagination logic
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
@@ -95,18 +100,21 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (activeSubCategory) {
-      getProducts(activeSubCategory, setProducts, setLoading);
+      setLoading(true); // Start loading spinner
+      getProducts(activeSubCategory, setProducts, setLoading); // Ensure this fetches data correctly
+    }
+  }, [activeSubCategory]);
 
+  useEffect(() => {
+    if (products.length > 0) {
+      setHeaders(Object.keys(products[0])); // Dynamically set headers based on first product object keys
       setFilteredData(
         products.filter((item) =>
           item.itemname.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
-
-      // Reset to the first page when data or searchTerm changes
-      setCurrentPage(1);
     }
-  }, [activeSubCategory, searchTerm]);
+  }, [products, searchTerm]);
 
   const menuItems = [
     { label: "Home", icon: faHome, link: "/home" },
@@ -296,7 +304,7 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 h-screen overflow-auto">
         <header
           className={`flex justify-between items-center ${
             dark ? "text-zinc-50" : "text-black"

@@ -5,7 +5,7 @@ export const getCategories = async (setCategories) => {
     const res = await axios.get("/api/categories/all");
     setCategories(res.data);
   } catch (error) {
-    throw new error();
+    return console.log(error);
   }
 };
 
@@ -14,7 +14,7 @@ export const getSubCategories = async (categoryName, setProducts) => {
     const res = await axios.post("/api/subcategories/all", { categoryName });
     setProducts(res.data);
   } catch (error) {
-    throw new error();
+    return console.log(error);
   }
 };
 
@@ -24,7 +24,7 @@ export const getProducts = async (subCategoryName, setProducts, setLoading) => {
     const res = await axios.post("/api/products/all", { subCategoryName });
     setProducts(res.data);
   } catch (error) {
-    throw new error();
+    return console.log(error);
   } finally {
     setLoading(false);
   }
