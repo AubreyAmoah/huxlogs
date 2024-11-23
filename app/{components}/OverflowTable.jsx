@@ -12,12 +12,16 @@ import React from "react";
 const OverflowTable = ({
   dark,
   data,
+  setFilter,
   headers,
   loading,
   onAddToCart,
   currentPage,
   totalPages,
   onPageChange,
+  search,
+  setSortProperty,
+  setOrder,
 }) => {
   if (loading)
     return (
@@ -47,21 +51,57 @@ const OverflowTable = ({
       <div className="flex justify-between mb-4 sticky left-1 max-[670px]:flex-col max-[670px]:gap-2">
         <div className="flex space-x-4 max-[500px]:flex-col max-[500px]:space-x-0 max-[500px]:gap-2">
           <input
+            onChange={(e) => search(e.target.value)}
             type="text"
             placeholder="Search a product"
             className="w-72 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black max-[500px]:w-full"
           />
-          <select className={`bg-blue-500 text-white px-4 py-2 rounded-md`}>
+          <select
+            onChange={(e) => setFilter(e.target.value)}
+            className={`bg-blue-500 text-white px-4 py-2 rounded-md`}
+          >
             <option value="">Filter by</option>
-            <option value="stock">Stock</option>
-            <option value="price">Price</option>
+            {headers
+              .filter((header) => header !== "_id")
+              .filter((header) => header !== "createdAt")
+              .filter((header) => header !== "type")
+              .map((header) => (
+                <option key={header} value={header}>
+                  {header === "itemname"
+                    ? "product"
+                    : header === "subcategory"
+                    ? "category"
+                    : header}
+                </option>
+              ))}
           </select>
         </div>
-        <div className="flex space-x-4">
-          <select className={`bg-blue-500 text-white px-4 py-2 rounded-md`}>
+        <div className="flex space-x-4 max-[500px]:flex-col max-[500px]:space-x-0 max-[500px]:gap-2">
+          <select
+            onChange={(e) => setSortProperty(e.target.value)}
+            className={`bg-blue-500 text-white px-4 py-2 rounded-md`}
+          >
             <option value="">Sort by</option>
-            <option value="name">Name</option>
-            <option value="date">Date</option>
+            {headers
+              .filter(
+                (header) =>
+                  header === "price" ||
+                  header === "balance" ||
+                  header === "createdAt"
+              )
+              .map((header) => (
+                <option key={header} value={header}>
+                  {header === "createdAt" ? "date added" : header}
+                </option>
+              ))}
+          </select>
+          <select
+            onChange={(e) => setOrder(e.target.value)}
+            className={`bg-blue-500 text-white px-4 py-2 rounded-md`}
+          >
+            <option value="">Order By</option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
           </select>
           <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
             <FontAwesomeIcon icon={faFilter} />
@@ -89,7 +129,7 @@ const OverflowTable = ({
                 .map((header) => (
                   <th
                     key={header}
-                    className={`px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[300px]`}
+                    className={`px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[300px] max-[600px]:min-w-[250px] max-[600px]:px-2`}
                   >
                     {header === "itemname"
                       ? "Product"
@@ -98,7 +138,7 @@ const OverflowTable = ({
                       : header}
                   </th>
                 ))}
-              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[130px]">
+              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[130px] max-[600px]:px-2">
                 Add to cart
               </th>
             </tr>
@@ -113,7 +153,7 @@ const OverflowTable = ({
                   .map((header) => (
                     <td
                       key={`${item._id}-${header}`}
-                      className="px-4 py-2 min-w-[300px] overflow-auto"
+                      className="px-4 py-2 min-w-[300px] overflow-auto max-[600px]:min-w-[250px] max-[600px]:px-2"
                     >
                       {item[header]}
                     </td>
@@ -128,7 +168,7 @@ const OverflowTable = ({
                   {item.available} pcs.
                 </span>
               </td> */}
-                <td className="px-4 py-2 text-left">
+                <td className="px-4 py-2 text-left max-[600px]:px-2">
                   <button
                     onClick={() => onAddToCart(item._id)}
                     className="px-2 py-1 text-sm text-white bg-green-500 rounded-md hover:bg-green-600"

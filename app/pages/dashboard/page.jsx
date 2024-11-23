@@ -42,8 +42,10 @@ const Dashboard = () => {
   const [categoryDropdowns, setCategoryDropdowns] = useState({}); // For managing category dropdowns
   const [subCategoryDropdowns, setSubCategoryDropdowns] = useState({});
 
-  const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [filter, setFilter] = useState("itemname");
+  const [sortProperty, setSortProperty] = useState("createdAt");
+  const [order, setOrder] = useState("asc");
   const [headers, setHeaders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -69,11 +71,6 @@ const Dashboard = () => {
     }));
   };
 
-  const handleCategoryClick = (categoryId, categoryName) => {
-    setActiveCategory(categoryName); // First update the active category
-    toggleCategoryDropdown(categoryId); // Then toggle the dropdown
-  };
-
   // Pagination logic
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
@@ -89,32 +86,58 @@ const Dashboard = () => {
 
   useEffect(() => {
     getCategories(setCategories);
-  }, []);
 
-  useEffect(() => {
     if (activeCategory) {
       getSubCategories(activeCategory, setSubCategories);
       setSubCategoryDropdowns({}); // Reset subcategory dropdown when new category is selected
     }
-  }, [activeCategory]);
 
-  useEffect(() => {
     if (activeSubCategory) {
       setLoading(true); // Start loading spinner
       getProducts(activeSubCategory, setProducts, setLoading); // Ensure this fetches data correctly
     }
-  }, [activeSubCategory]);
+  }, [activeCategory, activeSubCategory]);
 
   useEffect(() => {
     if (products.length > 0) {
       setHeaders(Object.keys(products[0])); // Dynamically set headers based on first product object keys
       setFilteredData(
-        products.filter((item) =>
-          item.itemname.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+        products
+          .filter((item) => {
+            const value = filter;
+            console.log(value);
+            if (typeof item[value] === "string") {
+              return item[value]
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+            }
+            return item[value].includes(searchTerm);
+          })
+          .sort((a, b) => {
+            const sortKey = sortProperty;
+            // const order = "desc"; // Change to "desc" for descending order
+
+            // Handle sorting for each type of value
+            if (sortKey === "createdAt") {
+              const dateA = new Date(a[sortKey]);
+              const dateB = new Date(b[sortKey]);
+              return order === "asc" ? dateA - dateB : dateB - dateA;
+            }
+
+            if (
+              typeof a[sortKey] === "number" &&
+              typeof b[sortKey] === "number"
+            ) {
+              return order === "asc"
+                ? a[sortKey] - b[sortKey]
+                : b[sortKey] - a[sortKey];
+            }
+
+            return 0; // Default fallback
+          })
       );
     }
-  }, [products, searchTerm]);
+  }, [products, filter, order, sortProperty, searchTerm]);
 
   const menuItems = [
     { label: "Home", icon: faHome, link: "/home" },
@@ -326,6 +349,10 @@ const Dashboard = () => {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={onPageChange}
+                setFilter={setFilter}
+                search={setSearchTerm}
+                setSortProperty={setSortProperty}
+                setOrder={setOrder}
               />
             </div>
           )}

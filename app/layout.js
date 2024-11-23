@@ -18,7 +18,7 @@ const geistMono = localFont({
 
 export const metadata = {
   title: "Huxlogs",
-  description: "Bank logs, credit cards etc",
+  description: "Bank logs, creditcards, huxlog, huxlogs, logs, log",
 };
 
 export default function RootLayout({ children }) {
