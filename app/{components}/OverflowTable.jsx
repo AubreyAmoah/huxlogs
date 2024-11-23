@@ -14,12 +14,29 @@ const OverflowTable = ({
   data,
   headers,
   loading,
-  onDelete,
   onAddToCart,
   currentPage,
   totalPages,
   onPageChange,
 }) => {
+  if (loading)
+    return (
+      <div
+        className={`${
+          dark ? `bg-black` : `bg-zinc-50`
+        } h-screen flex flex-col items-center justify-center`}
+      >
+        <FontAwesomeIcon
+          icon={faSpinner}
+          className={`${
+            dark ? "text-violet-600" : " text-blue-400"
+          } animate-spin text-8xl`}
+        />
+        <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
+          Loading...
+        </span>
+      </div>
+    );
   return (
     <div
       className={`${
@@ -81,7 +98,7 @@ const OverflowTable = ({
                       : header}
                   </th>
                 ))}
-              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[120px]">
+              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[130px]">
                 Add to cart
               </th>
             </tr>
