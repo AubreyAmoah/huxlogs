@@ -189,7 +189,7 @@ const Dashboard = () => {
               <p className=" text-orange-900 font-bold">
                 The search box searches as you type, the filter box beside it
                 instructs the search box on what to search by. ie name, price
-                etc. <br /> By default the filter is set to the product's name
+                etc. <br /> By default the filter is set to the product&apos;s name
               </p>
               <OverflowTable
                 dark={dark}
