@@ -1,20 +1,60 @@
 "use client";
 
 import { ThemeContext } from "@/app/context/ThemeContext";
+import { AuthContext } from "@/app/context/AuthContext";
 import DashboardNav from "@/app/{components}/DashboardNav";
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import { getCartItems } from "@/app/calls/apiCalls";
+import axios from "axios";
 
 const Cart = () => {
   const { dark } = React.useContext(ThemeContext);
+  const { user, authError } = React.useContext(AuthContext);
 
+  const [loading, setLoading] = React.useState(false);
   const [isBitcoin, setIsBitcoin] = React.useState(true);
+  const [cartItems, setCartItems] = React.useState({});
 
   const toggleCurrency = () => {
     setIsBitcoin(!isBitcoin);
   };
+
+  const getCartItems = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/api/products/showcart");
+      setCartItems(res.data);
+    } catch (error) {
+      return console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    getCartItems();
+  }, [cartItems]);
+
+  if (authError)
+    return (
+      <div
+        className={`${
+          dark ? `bg-black text-zinc-50` : `bg-zinc-50 text-black`
+        } h-screen flex flex-col items-center justify-center`}
+      >
+        <h1 className="text-3xl">You are not authenticated</h1>
+        <Link
+          className={`${dark ? "text-violet-600" : "text-blue-400"}`}
+          href={"/"}
+        >
+          Click to return to hompage
+        </Link>
+      </div>
+    );
 
   return (
     <div
@@ -80,26 +120,15 @@ const Cart = () => {
           } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
         >
           <h3 className="text-lg font-semibold mb-4">Shopping cart</h3>
-          <div className="flex items-center space-x-4 mb-6">
-            <img
-              src="/tv-image.png"
-              alt="65-inch 4K UHD Smart TV"
-              className="w-20 h-20 object-cover"
-            />
-            <div className="flex-1">
-              <p className="font-medium">65-inch 4K UHD Smart TV</p>
-              <div className="flex items-center space-x-2 mt-2">
-                <button className="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200">
-                  -
-                </button>
-                <span className="px-3 py-1 border rounded"></span>
-                <button className="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200">
-                  +
-                </button>
-              </div>
-              <p className="text-gray-500 mt-2"> €</p>
+
+          {cartItems?.cart?.map((cartItem) => (
+            <div
+              key={cartItem._id}
+              className="flex items-center space-x-4 mb-6"
+            >
+              {cartItem.price}
             </div>
-          </div>
+          ))}
 
           <div className="space-y-4">
             <div>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export const getCategories = async (setCategories) => {
   try {
@@ -25,6 +26,19 @@ export const getProducts = async (subCategoryName, setProducts, setLoading) => {
     setProducts(res.data);
   } catch (error) {
     return console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const addToCart = async (id, setLoading) => {
+  try {
+    setLoading(true);
+    const res = await axios.post("/api/products/addtocart", { id });
+    if (res.status === 201) toast.success(res.data.message);
+  } catch (error) {
+    console.error(error.response.data || error);
+    return toast.error(error.response.data.error || "An error occurred");
   } finally {
     setLoading(false);
   }

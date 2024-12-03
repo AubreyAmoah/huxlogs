@@ -7,6 +7,7 @@ import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import {
+  addToCart,
   getCategories,
   getProducts,
   getSubCategories,
@@ -195,6 +196,7 @@ const Dashboard = () => {
                 data={paginatedData}
                 headers={headers}
                 loading={loading}
+                setLoading={setLoading}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={onPageChange}
@@ -202,6 +204,7 @@ const Dashboard = () => {
                 search={setSearchTerm}
                 setSortProperty={setSortProperty}
                 setOrder={setOrder}
+                onAddToCart={addToCart}
               />
             </div>
           )}

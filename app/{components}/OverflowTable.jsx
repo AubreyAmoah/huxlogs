@@ -15,6 +15,7 @@ const OverflowTable = ({
   setFilter,
   headers,
   loading,
+  setLoading,
   onAddToCart,
   currentPage,
   totalPages,
@@ -170,7 +171,7 @@ const OverflowTable = ({
               </td> */}
                 <td className="px-4 py-2 text-left max-[600px]:px-2">
                   <button
-                    onClick={() => onAddToCart(item._id)}
+                    onClick={() => onAddToCart(item._id, setLoading)}
                     className="px-2 py-1 text-sm text-white bg-green-500 rounded-md hover:bg-green-600"
                   >
                     <FontAwesomeIcon icon={faShoppingCart} />
