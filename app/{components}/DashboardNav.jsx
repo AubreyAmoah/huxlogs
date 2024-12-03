@@ -23,17 +23,17 @@ const DashboardNav = ({ email, name, image }) => {
       >
         {dark ? (
           <Image
-            src="/three.svg"
+            src="/three.png"
             alt="App logo"
-            width={200}
+            width={150}
             height={58}
             priority
           />
         ) : (
           <Image
-            src="/two.svg"
+            src="/two.png"
             alt="App logo"
-            width={200}
+            width={150}
             height={58}
             priority
           />

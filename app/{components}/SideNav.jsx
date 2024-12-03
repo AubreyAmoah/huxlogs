@@ -8,17 +8,13 @@ import DashboardNav from "@/app/{components}/DashboardNav";
 import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSpinner,
-  faWarning,
   faHome,
-  faChartBar,
-  faCog,
-  faBars,
   faRightFromBracket,
   faList,
   faCaretDown,
   faCaretUp,
   faShoppingCart,
+  faCreditCard,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
@@ -34,23 +30,19 @@ const SideNav = ({
   setSidebarOpen,
   setActiveCategory,
   setActiveSubCategory,
-  toggleCart,
-  cartPage,
-  setCartPage,
 }) => {
   const { dark } = React.useContext(ThemeContext);
   const { user, onLogout } = React.useContext(AuthContext);
   const menuItems = [
     { label: "Home", icon: faHome, link: "/pages/dashboard" },
     { label: "Categories", icon: faList },
-    { label: "Cart", icon: faShoppingCart, onClick: toggleCart },
+    { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
+    { label: "Orders", icon: faCreditCard, link: "/pages/orders" },
     { label: "Logout", icon: faRightFromBracket, onClick: onLogout },
   ];
 
   // Toggle a specific category's dropdown
   const toggleCategoryDropdown = (categoryId) => {
-    if (cartPage == true) setCartPage(false);
-    console.log(cartPage);
     setCategoryDropdowns((prevState) => ({
       ...prevState,
       [categoryId]: !prevState[categoryId], // Toggle the specific category dropdown
@@ -59,7 +51,6 @@ const SideNav = ({
 
   // Toggle a specific subcategory's dropdown
   const toggleSubCategoryDropdown = (categoryId) => {
-    if (cartPage == true) setCartPage(false);
     setSubCategoryDropdowns((prevState) => ({
       ...prevState,
       [categoryId]: !prevState[categoryId], // Toggle the specific subcategory dropdown
@@ -173,21 +164,6 @@ const SideNav = ({
                   </div>
                 )}
               </div>
-            );
-          }
-
-          if (item.label === "Cart") {
-            return (
-              <button
-                key={item.label}
-                onClick={toggleCart}
-                className={`flex items-center w-full px-4 py-3 text-lg ${
-                  dark ? "text-zinc-50" : "text-white"
-                } hover:bg-opacity-30 hover:bg-black/10`}
-              >
-                <FontAwesomeIcon icon={item.icon} className="mr-3" />
-                {sidebarOpen && <span>{item.label}</span>}
-              </button>
             );
           }
 

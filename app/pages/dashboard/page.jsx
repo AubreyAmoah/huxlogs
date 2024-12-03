@@ -34,8 +34,6 @@ const Dashboard = () => {
   const [headers, setHeaders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [cartPage, setCartPage] = useState(false);
-
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -53,14 +51,6 @@ const Dashboard = () => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
-  };
-
-  //Cart  page toggle
-  const toggleCart = () => {
-    setActiveCategory({});
-    setActiveSubCategory({});
-    setCartPage(true);
-    console.log(cartPage);
   };
 
   useEffect(() => {
@@ -172,9 +162,6 @@ const Dashboard = () => {
         setSidebarOpen={setSidebarOpen}
         setActiveCategory={setActiveCategory}
         setActiveSubCategory={setActiveSubCategory}
-        toggleCart={toggleCart}
-        cartPage={cartPage}
-        setCartPage={setCartPage}
       />
 
       {/* Main Content */}
@@ -216,15 +203,6 @@ const Dashboard = () => {
                 setSortProperty={setSortProperty}
                 setOrder={setOrder}
               />
-            </div>
-          )}
-
-          {/* Content for Cart */}
-          {cartPage && (
-            <div>
-              className=
-              {`${dark ? "text-zinc-50" : "text-black"} mt-6 text-lg font-bold`}
-              <h1>Cart</h1>
             </div>
           )}
         </div>
