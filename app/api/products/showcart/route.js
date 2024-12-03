@@ -41,7 +41,7 @@ export async function GET(req) {
       // If item details exist, combine them with the cart data
       return {
         itemID: cartItem.itemID,
-        name: itemDetail?.name || "Unknown item", // Use 'Unknown item' if no name is found
+        name: itemDetail?.itemname || "Unknown item", // Use 'Unknown item' if no name is found
         price: itemDetail?.price || 0, // Default to 0 if no price is available
         description: itemDetail?.description || "No description available",
         quantity: cartItem.quantity,
