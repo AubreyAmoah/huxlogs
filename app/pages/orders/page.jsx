@@ -5,6 +5,7 @@ import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
+  faCaretDown,
   faHome,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
@@ -104,9 +105,6 @@ const Orders = () => {
                     <p>Status: {order.status}</p>
                     <p>Total: ${order.total}</p>
                     <p>Items: {order.items.length}</p>
-                    <button className="mt-2 shadow-md flex items-center gap-2">
-                      More Details <FontAwesomeIcon icon={faArrowDown} />
-                    </button>
                   </div>
                 ))}
               </div>

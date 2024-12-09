@@ -58,8 +58,8 @@ const ConfirmPurchase = ({
         </p>
 
         <p className="text-red-600 font-bold mt-6">
-          Please pay the exact amount as seen on the site. Over paying won't be
-          refunded. We won't release your product to you if you under pay also
+          Please pay the exact amount as seen on the site. Over paying won&apos;t be
+          refunded. We won&apos;t release your product to you if you under pay also
         </p>
 
         <button
