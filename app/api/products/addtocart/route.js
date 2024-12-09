@@ -26,6 +26,7 @@ export async function POST(req) {
       );
 
     const { id } = body; // Get itemID from request body
+    let item = await db.collection("item").findOne({ _id: new ObjectId(id) });
 
     if (!id)
       return NextResponse.json(
@@ -53,17 +54,19 @@ export async function POST(req) {
     if (itemExists) {
       return NextResponse.json(
         {
-          error:
-            "Item already in cart.",
+          error: "Item already in cart.",
         },
         { status: 400 }
       );
     }
 
+    console.log(item);
+
     // If the item is not in the cart, add it
     const newItem = {
       itemID: new ObjectId(id),
-      quantity: 1, // Default to 1 if no quantity is provided
+      quantity: 1,
+      price: item.price,
       addedAt: new Date(Date.now()),
     };
 

@@ -2,12 +2,12 @@
 
 import { ThemeContext } from "@/app/context/ThemeContext";
 import { AuthContext } from "@/app/context/AuthContext";
-import DashboardNav from "@/app/{components}/DashboardNav";
 import {
   faBitcoinSign,
   faCopy,
   faHome,
   faLitecoinSign,
+  faSpinner,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,14 +16,15 @@ import React from "react";
 import Link from "next/link";
 import axios from "axios";
 import toast from "react-hot-toast";
+import ConfirmPurchase from "@/app/{components}/ConfirmPurchase";
 
 const Cart = () => {
   const { dark } = React.useContext(ThemeContext);
-  const { user, authError } = React.useContext(AuthContext);
 
   const [loading, setLoading] = React.useState(false);
   const [isBitcoin, setIsBitcoin] = React.useState(true);
-  const [cartItems, setCartItems] = React.useState([]); // Initialize as an array
+  const [cartItems, setCartItems] = React.useState([]);
+  const [visible, setVisible] = React.useState(false);
 
   const handleCopy = () => {
     const address = isBitcoin
@@ -84,27 +85,10 @@ const Cart = () => {
 
   const totalPrice = calculateTotalPrice(cartItems);
 
-  if (authError)
-    return (
-      <div
-        className={`${
-          dark ? `bg-black text-zinc-50` : `bg-zinc-50 text-black`
-        } h-screen flex flex-col items-center justify-center`}
-      >
-        <h1 className="text-3xl">You are not authenticated</h1>
-        <Link
-          className={`${dark ? "text-violet-600" : "text-blue-400"}`}
-          href={"/"}
-        >
-          Click to return to homepage
-        </Link>
-      </div>
-    );
-
   return (
     <div
       className={`min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${
-        dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black"
+        dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black relative"
       }`}
     >
       {/* Header Navigation */}
@@ -113,7 +97,7 @@ const Cart = () => {
           dark ? "text-violet-600" : "text-blue-400"
         } mb-8 capitalize text-2xl max-[320px]:text-center max-[320px]:text-xl max-[320px]:pt-4`}
       >
-        <Link href={!authError ? "/pages/dashboard" : "/"}>
+        <Link href={"/pages/dashboard"}>
           <FontAwesomeIcon icon={faHome} />
         </Link>
       </h1>
@@ -190,7 +174,7 @@ const Cart = () => {
           <h3 className="text-lg font-semibold mb-4">Shopping cart</h3>
           <div className=" overflow-auto h-[60%]">
             {loading ? (
-              <p>Loading...</p>
+              <FontAwesomeIcon className=" animate-spin" icon={faSpinner} />
             ) : cartItems.length > 0 ? (
               cartItems.map((cartItem) => (
                 <div
@@ -223,17 +207,30 @@ const Cart = () => {
             </div>
           </div>
 
-          <button
-            className={`${
-              dark
-                ? "rounded-md border border-violet-600 text-zinc-50 bg-violet-600 px-4 py-3 hover:bg-violet-800 hover:text-zinc-50"
-                : "rounded-md border border-blue-400 text-zinc-50 bg-blue-400 px-4 py-3 hover:bg-blue-600 hover:text-zinc-50"
-            } w-full mt-6`}
-          >
-            Confirm payment
-          </button>
+          {cartItems.length > 0 ? (
+            <button
+              onClick={() => setVisible(true)}
+              className={`${
+                dark
+                  ? "rounded-md border border-violet-600 text-zinc-50 bg-violet-600 px-4 py-3 hover:bg-violet-800 hover:text-zinc-50"
+                  : "rounded-md border border-blue-400 text-zinc-50 bg-blue-400 px-4 py-3 hover:bg-blue-600 hover:text-zinc-50"
+              } w-full mt-6`}
+            >
+              Confirm payment
+            </button>
+          ) : (
+            <p></p>
+          )}
         </div>
       </div>
+
+      <ConfirmPurchase
+        loading={loading}
+        setLoading={setLoading}
+        visible={visible}
+        setVisible={setVisible}
+        getCartItems={fetchCartItems}
+      />
     </div>
   );
 };

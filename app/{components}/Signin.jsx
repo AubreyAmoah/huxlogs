@@ -96,6 +96,11 @@ const Signin = () => {
 
       <input
         onChange={(e) => setUser({ ...user, password: e.target.value })}
+        onKeyDown={(e) =>
+          isSignup
+            ? e.key === "Enter" && onSignup(user)
+            : e.key === "Enter" && onLogin(user)
+        }
         type="password"
         id="password"
         className={`${

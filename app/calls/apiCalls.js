@@ -43,3 +43,19 @@ export const addToCart = async (id, setLoading) => {
     setLoading(false);
   }
 };
+
+export const handlePurchase = async (setLoading) => {
+  try {
+    setLoading(true);
+    const res = await axios.post("/api/products/purchase");
+    
+    if (res.status === 201) {
+      toast.success("Purchase successful,");
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Could not complete the purchase.");
+  } finally {
+    setLoading(false);
+  }
+};

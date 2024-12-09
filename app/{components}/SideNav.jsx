@@ -149,7 +149,7 @@ const SideNav = ({
                                   onClick={() =>
                                     setActiveSubCategory(subcategory.name)
                                   }
-                                  className={`flex items-center w-full px-4 py-2 text-sm ${
+                                  className={`flex items-center w-full px-4 py-2 text-xl ${
                                     dark ? "text-zinc-50" : "text-white"
                                   } hover:bg-opacity-30 hover:bg-black/10`}
                                 >
