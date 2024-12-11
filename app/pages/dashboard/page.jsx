@@ -142,7 +142,7 @@ const Dashboard = () => {
           toggleSidebar();
           setCategoryDropdowns({});
         }}
-        className="absolute top-2 left-2 bg-white p-2 rounded-full shadow-md w-[40px] h-[40px]"
+        className="absolute top-2 left-2 bg-white p-2 rounded-full shadow-md w-[40px] h-[40px] z-50"
       >
         {sidebarOpen ? (
           <FontAwesomeIcon icon={faTimes} className="text-black" />

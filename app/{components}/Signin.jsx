@@ -56,7 +56,7 @@ const Signin = () => {
     );
 
   return (
-    <div className="flex flex-col items-center gap-6 w-[500px] h-[600px] mt-6 ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:w-full max-[600px]:shadow-none max-[600px]:rounded-none max-[600px]:h-full max-[600px]:p-2 max-[500px]:p-0">
+    <div className="flex flex-col items-center gap-6 w-[500px] h-[600px] mt-6 ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:w-full max-[600px]:shadow-none max-[600px]:rounded-none max-[600px]:h-full">
       {dark ? (
         <Image
           src="/three.png"
@@ -68,7 +68,7 @@ const Signin = () => {
       ) : (
         <Image src="/two.png" alt="App logo" width={120} height={0} priority />
       )}
-      <p className={`${dark ? "text-zinc-50" : "text-black"}`}>
+      <p className={`${dark ? "text-zinc-50" : "text-black"} max-[510px]:text-sm`}>
         Constant rise of phishing sites impersoninating HUXLOGS is on the rise
         in massive numbers.{" "}
         <Link
