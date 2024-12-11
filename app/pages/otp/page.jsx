@@ -111,16 +111,16 @@ const OTP = () => {
               <input
                 key={index}
                 ref={(el) => (inputRefs.current[index] = el)} // Assign ref to each input
-                type="text"
+                type="number"
                 value={value}
                 onChange={(e) => handleInputChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onPaste={index === 0 ? handlePaste : null} // Handle paste only on the first input
-                className={`${
+                className={`appearance-none ${
                   dark
                     ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
                     : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
-                } p-4 text-7xl text-center w-[100px] h-[100px] rounded-sm shadow-sm max-[500px]:w-[80px] max-[500px]:h-[80px] max-[500px]:text-5xl max-[410px]:w-[50px] max-[410px]:h-[50px] max-[410px]:text-3xl`}
+                } p-4 text-7xl text-center w-[100px] h-[100px] rounded-sm shadow-sm max-[500px]:w-[80px] max-[500px]:h-[80px] max-[500px]:text-5xl max-[410px]:w-[50px] max-[410px]:h-[50px] max-[410px]:text-2xl`}
                 maxLength={1}
                 required
               />
@@ -133,7 +133,7 @@ const OTP = () => {
               dark
                 ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black"
                 : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50"
-            } w-[500px] max-[500px]:w-screen`}
+            } w-[500px] max-[500px]:w-[90%]`}
           >
             Validate
           </button>

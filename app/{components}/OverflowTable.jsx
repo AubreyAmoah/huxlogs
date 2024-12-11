@@ -156,7 +156,9 @@ const OverflowTable = ({
                       key={`${item._id}-${header}`}
                       className="px-4 py-2 min-w-[300px] overflow-auto max-[600px]:min-w-[250px] max-[600px]:px-2"
                     >
-                      {item[header]}
+                      {header === "balance" || header === "price"
+                        ? `$ ${item[header]}`
+                        : item[header]}
                     </td>
                   ))}
                 {/* Stock availability with color indicators */}
