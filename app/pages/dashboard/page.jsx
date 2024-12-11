@@ -14,6 +14,7 @@ import {
 } from "@/app/calls/apiCalls";
 import OverflowTable from "@/app/{components}/OverflowTable";
 import SideNav from "@/app/{components}/SideNav";
+import DashboardWelcome from "@/app/{components}/DashboardWelcome";
 
 const Dashboard = () => {
   const { dark } = React.useContext(ThemeContext);
@@ -171,14 +172,13 @@ const Dashboard = () => {
           className={`flex justify-between items-center ${
             dark ? "text-zinc-50" : "text-black"
           }`}
-        >
-          <h1 className=" text-green-800">Welcome {user.email}</h1>
-        </header>
+        ></header>
 
         <div>
           {/* Content for Products */}
-          {activeSubCategory && (
+          {activeSubCategory ? (
             <div>
+              <h1 className=" text-green-800">Welcome {user.email}</h1>
               <h2
                 className={`${
                   dark ? "text-zinc-50" : "text-black"
@@ -189,7 +189,8 @@ const Dashboard = () => {
               <p className=" text-orange-900 font-bold">
                 The search box searches as you type, the filter box beside it
                 instructs the search box on what to search by. ie name, price
-                etc. <br /> By default the filter is set to the product&apos;s name
+                etc. <br /> By default the filter is set to the product&apos;s
+                name
               </p>
               <OverflowTable
                 dark={dark}
@@ -207,6 +208,8 @@ const Dashboard = () => {
                 onAddToCart={addToCart}
               />
             </div>
+          ) : (
+            <DashboardWelcome dark={dark} user={user} />
           )}
         </div>
       </main>
