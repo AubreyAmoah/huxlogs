@@ -109,7 +109,7 @@ const DashboardWelcome = ({ dark, user }) => {
             >
               <h4 className="text-2xl font-bold mb-2">User-Friendly</h4>
               <p className="">
-                Enjoy an intuitive dashboard that's easy to navigate and
+                Enjoy an intuitive dashboard that&apos;s easy to navigate and
                 operate.
               </p>
             </div>
