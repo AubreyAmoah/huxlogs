@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const DashboardWelcome = ({ dark, user }) => {
@@ -23,6 +24,7 @@ const DashboardWelcome = ({ dark, user }) => {
       >
         <div className="text-center">
           <h2 className="text-4xl font-bold mb-4">Welcome to Huxlogs</h2>
+
           <p className="text-lg mb-6">
             Purchase your logs with ease! The following categories are
             available.

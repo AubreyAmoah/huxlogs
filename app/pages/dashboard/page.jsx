@@ -57,17 +57,21 @@ const Dashboard = () => {
 
   useEffect(() => {
     getCategories(setCategories);
+  }, []);
 
+  useEffect(() => {
     if (activeCategory) {
       getSubCategories(activeCategory, setSubCategories);
-      setSubCategoryDropdowns({}); // Reset subcategory dropdown when new category is selected
+      setSubCategoryDropdowns({});
     }
+  }, [activeCategory]);
 
+  useEffect(() => {
     if (activeSubCategory) {
-      setLoading(true); // Start loading spinner
-      getProducts(activeSubCategory, setProducts, setLoading); // Ensure this fetches data correctly
+      setLoading(true);
+      getProducts(activeSubCategory, setProducts, setLoading);
     }
-  }, [activeCategory, activeSubCategory]);
+  }, [activeSubCategory]);
 
   useEffect(() => {
     if (products.length > 0) {
