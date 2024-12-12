@@ -59,7 +59,9 @@ const SideNav = ({
   return (
     <aside
       className={`${
-        sidebarOpen ? "w-64 max-[700px]:w-full" : "w-16 max-[700px]:hidden"
+        sidebarOpen
+          ? "w-64 max-[970px]:absolute max-[970px]:top-0 max-[970px]:left-0"
+          : "w-16 max-[700px]:hidden"
       } bg-gradient-to-b ${
         dark ? "from-violet-800 to-black" : "from-blue-300 to-blue-600"
       } h-screen overflow-auto transition-all duration-300 flex flex-col items-start py-6`}
