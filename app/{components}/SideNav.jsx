@@ -39,7 +39,7 @@ const SideNav = ({
   const menuItems = [
     { label: "Home", icon: faHome, link: "/pages/dashboard" },
     { label: "Bank Logs", icon: faBank },
-    { label: "Credit Card Logs", icon: faCcAmazonPay },
+    { label: "Cards/Linkables", icon: faCcAmazonPay },
     { label: "Paypal/Cashapp Logs", icon: faPaypal },
     { label: "Tools", icon: faTools },
     { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
