@@ -49,7 +49,7 @@ const Orders = () => {
       }`}
     >
       <h1
-        className={`text-3xl mb-6 ${
+        className={`text-xl mb-6 ${
           dark ? "text-violet-600" : "text-blue-400"
         } flex gap-2 items-end`}
       >

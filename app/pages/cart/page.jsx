@@ -95,7 +95,7 @@ const Cart = () => {
       <h1
         className={`${
           dark ? "text-violet-600" : "text-blue-400"
-        } mb-8 capitalize text-2xl max-[320px]:text-center max-[320px]:text-xl max-[320px]:pt-4`}
+        } mb-8 capitalize text-xl max-[320px]:text-center max-[320px]:text-xl max-[320px]:pt-4`}
       >
         <Link href={"/pages/dashboard"}>
           <FontAwesomeIcon icon={faHome} />
@@ -109,7 +109,7 @@ const Cart = () => {
             dark ? "bg-[#252525]" : "bg-white"
           } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
         >
-          <div className="flex w-full justify-between items-center max-[530px]:text-sm max-[350px]:flex-col">
+          <div className="flex flex-col w-full items-center mb-2 max-[530px]:text-sm">
             <h3
               className={`text-lg font-semibold mb-4 max-[530px]:text-sm max-[430px]:text-xs`}
             >
@@ -140,7 +140,7 @@ const Cart = () => {
               <Image
                 src="/bitcoin.jpeg"
                 alt="Bitcoin logo"
-                width={350}
+                width={300}
                 height={0}
                 priority
               />
@@ -148,14 +148,14 @@ const Cart = () => {
               <Image
                 src="/litecoin.jpeg"
                 alt="Litecoin logo"
-                width={350}
+                width={300}
                 height={0}
                 priority
               />
             )}
           </div>
 
-          <div className="text-center flex gap-2 items-center w-full mt-4 justify-center max-[450px]:text-sm max-[406px]:text-xs max-[320px]:flex-wrap">
+          <div className="text-center flex gap-2 items-center w-full mt-4 justify-center text-xl max-[406px]:text-base max-[320px]:flex-wrap">
             {isBitcoin
               ? "bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem"
               : "LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz"}
