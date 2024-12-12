@@ -1,18 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Signin from "@/app/{components}/Signin";
+import React from "react";
 import { ThemeContext } from "@/app/context/ThemeContext";
-import ThemeToggler from "@/app/{components}/ThemeToggler";
-import DashboardNav from "@/app/{components}/DashboardNav";
 import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
   faRightFromBracket,
-  faList,
-  faCaretDown,
-  faCaretUp,
   faShoppingCart,
   faCreditCard,
   faBank,
@@ -22,46 +16,38 @@ import Link from "next/link";
 import Image from "next/image";
 import { faCcAmazonPay, faPaypal } from "@fortawesome/free-brands-svg-icons";
 
-const SideNav = ({
-  categories,
-  subCategories,
-  categoryDropdowns,
-  subCategoryDropdowns,
-  setCategoryDropdowns,
-  setSubCategoryDropdowns,
-  sidebarOpen,
-  setSidebarOpen,
-  setActiveCategory,
-  setActiveSubCategory,
-}) => {
+const SideNav = ({ setFamily, sidebarOpen }) => {
   const { dark } = React.useContext(ThemeContext);
   const { user, onLogout } = React.useContext(AuthContext);
   const menuItems = [
-    { label: "Home", icon: faHome, link: "/pages/dashboard" },
-    { label: "Bank Logs", icon: faBank },
-    { label: "Cards/Linkables", icon: faCcAmazonPay },
-    { label: "Spammed Accounts", icon: faPaypal },
-    { label: "Tools", icon: faTools },
+    {
+      label: "Home",
+      icon: faHome,
+      onClick: () => setFamily(""),
+      link: "/pages/dashboard",
+    },
+    { label: "Bank Logs", icon: faBank, onClick: () => setFamily("banklogs") },
+    {
+      label: "Cards/Linkables",
+      icon: faCreditCard,
+      onClick: () => setFamily("creditcards"),
+    },
+    {
+      label: "Spammed Accounts 1",
+      icon: faPaypal,
+      onClick: () => setFamily("paypal"),
+    },
+    {
+      label: "Spammed Accounts 2",
+      icon: faCcAmazonPay,
+      onClick: () => setFamily("cashapp"),
+    },
+    { label: "Tools", icon: faTools, onClick: () => setFamily("tools") },
     { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
     { label: "Orders", icon: faCreditCard, link: "/pages/orders" },
     { label: "Logout", icon: faRightFromBracket, onClick: onLogout },
   ];
 
-  // Toggle a specific category's dropdown
-  const toggleCategoryDropdown = (categoryId) => {
-    setCategoryDropdowns((prevState) => ({
-      ...prevState,
-      [categoryId]: !prevState[categoryId], // Toggle the specific category dropdown
-    }));
-  };
-
-  // Toggle a specific subcategory's dropdown
-  const toggleSubCategoryDropdown = (categoryId) => {
-    setSubCategoryDropdowns((prevState) => ({
-      ...prevState,
-      [categoryId]: !prevState[categoryId], // Toggle the specific subcategory dropdown
-    }));
-  };
   return (
     <aside
       className={`${
@@ -85,15 +71,12 @@ const SideNav = ({
       {/* Menu Items */}
       <nav className="flex-1 w-full">
         {menuItems.map((item) => {
-          if (item.label === "Categories") {
+          if (item.label === "Bank Logs") {
             return (
               <div key={item.label} className="w-full">
                 {/* Category Dropdown Toggle */}
                 <button
-                  onClick={() => {
-                    toggleCategoryDropdown(item.label);
-                    setSidebarOpen(true);
-                  }}
+                  onClick={item.onClick}
                   className={`flex items-center w-full px-4 py-3 text-lg ${
                     dark ? "text-zinc-50" : "text-white"
                   } hover:bg-opacity-30 hover:bg-black/10`}
@@ -102,75 +85,93 @@ const SideNav = ({
                   {sidebarOpen && (
                     <span className="flex items-center justify-between w-full">
                       {item.label}
-                      <FontAwesomeIcon
-                        icon={
-                          categoryDropdowns[item.label]
-                            ? faCaretUp
-                            : faCaretDown
-                        }
-                      />
                     </span>
                   )}
                 </button>
+              </div>
+            );
+          }
 
-                {/* Categories Dropdown */}
-                {categoryDropdowns[item.label] && (
-                  <div className="ml-4">
-                    {categories.map((category) => (
-                      <div
-                        key={category._id}
-                        onClick={() => setActiveCategory(category.name)}
-                        className={`flex items-center w-full px-1 text-sm ${
-                          dark ? "text-zinc-50" : "text-white"
-                        }`}
-                      >
-                        <div key={item.label} className="w-full">
-                          {/* SubCategory Dropdown Toggle */}
-                          <button
-                            onClick={() =>
-                              toggleSubCategoryDropdown(category._id)
-                            }
-                            className={`flex items-center w-full px-4 py-3 text-lg ${
-                              dark ? "text-zinc-50" : "text-white"
-                            } hover:bg-opacity-30 hover:bg-black/10`}
-                          >
-                            {sidebarOpen && (
-                              <span className="flex items-center justify-between w-full">
-                                {category.name}
-                                <FontAwesomeIcon
-                                  icon={
-                                    subCategoryDropdowns[category._id]
-                                      ? faCaretUp
-                                      : faCaretDown
-                                  }
-                                />
-                              </span>
-                            )}
-                          </button>
+          if (item.label === "Cards/Linkables") {
+            return (
+              <div key={item.label} className="w-full">
+                {/* Category Dropdown Toggle */}
+                <button
+                  onClick={item.onClick}
+                  className={`flex items-center w-full px-4 py-3 text-lg ${
+                    dark ? "text-zinc-50" : "text-white"
+                  } hover:bg-opacity-30 hover:bg-black/10`}
+                >
+                  <FontAwesomeIcon icon={item.icon} className="mr-3" />
+                  {sidebarOpen && (
+                    <span className="flex items-center justify-between w-full">
+                      {item.label}
+                    </span>
+                  )}
+                </button>
+              </div>
+            );
+          }
 
-                          {/* SubCategories Dropdown */}
-                          {subCategoryDropdowns[category._id] && (
-                            <div className="ml-4">
-                              {subCategories.map((subcategory) => (
-                                <button
-                                  key={subcategory._id}
-                                  onClick={() =>
-                                    setActiveSubCategory(subcategory.name)
-                                  }
-                                  className={`flex items-center w-full px-4 py-2 text-xl ${
-                                    dark ? "text-zinc-50" : "text-white"
-                                  } hover:bg-opacity-30 hover:bg-black/10`}
-                                >
-                                  {subcategory.name}
-                                </button>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+          if (item.label === "Spammed Accounts 1") {
+            return (
+              <div key={item.label} className="w-full">
+                {/* Category Dropdown Toggle */}
+                <button
+                  onClick={item.onClick}
+                  className={`flex items-center w-full px-4 py-3 text-lg ${
+                    dark ? "text-zinc-50" : "text-white"
+                  } hover:bg-opacity-30 hover:bg-black/10`}
+                >
+                  <FontAwesomeIcon icon={item.icon} className="mr-3" />
+                  {sidebarOpen && (
+                    <span className="flex items-center justify-between w-full">
+                      {item.label}
+                    </span>
+                  )}
+                </button>
+              </div>
+            );
+          }
+
+          if (item.label === "Spammed Accounts 2") {
+            return (
+              <div key={item.label} className="w-full">
+                {/* Category Dropdown Toggle */}
+                <button
+                  onClick={item.onClick}
+                  className={`flex items-center w-full px-4 py-3 text-lg ${
+                    dark ? "text-zinc-50" : "text-white"
+                  } hover:bg-opacity-30 hover:bg-black/10`}
+                >
+                  <FontAwesomeIcon icon={item.icon} className="mr-3" />
+                  {sidebarOpen && (
+                    <span className="flex items-center justify-between w-full">
+                      {item.label}
+                    </span>
+                  )}
+                </button>
+              </div>
+            );
+          }
+
+          if (item.label === "Tools") {
+            return (
+              <div key={item.label} className="w-full">
+                {/* Category Dropdown Toggle */}
+                <button
+                  onClick={item.onClick}
+                  className={`flex items-center w-full px-4 py-3 text-lg ${
+                    dark ? "text-zinc-50" : "text-white"
+                  } hover:bg-opacity-30 hover:bg-black/10`}
+                >
+                  <FontAwesomeIcon icon={item.icon} className="mr-3" />
+                  {sidebarOpen && (
+                    <span className="flex items-center justify-between w-full">
+                      {item.label}
+                    </span>
+                  )}
+                </button>
               </div>
             );
           }
@@ -187,6 +188,22 @@ const SideNav = ({
                 <FontAwesomeIcon icon={item.icon} className="mr-3" />
                 {sidebarOpen && <span>{item.label}</span>}
               </button>
+            );
+          }
+
+          if (item.label === "Home") {
+            return (
+              <Link
+                onClick={item.onClick}
+                href={item.link || "#"}
+                key={item.label}
+                className={`flex items-center w-full px-4 py-3 text-lg ${
+                  dark ? "text-zinc-50" : "text-white"
+                } hover:bg-opacity-30 hover:bg-black/10`}
+              >
+                <FontAwesomeIcon icon={item.icon} className="mr-3" />
+                {sidebarOpen && <span>{item.label}</span>}
+              </Link>
             );
           }
 

@@ -6,28 +6,19 @@ import ThemeToggler from "@/app/{components}/ThemeToggler";
 import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import {
-  addToCart,
-  getCategories,
-  getProducts,
-  getSubCategories,
-} from "@/app/calls/apiCalls";
+import { addToCart } from "@/app/calls/apiCalls";
 import OverflowTable from "@/app/{components}/OverflowTable";
 import SideNav from "@/app/{components}/SideNav";
 import DashboardWelcome from "@/app/{components}/DashboardWelcome";
+import axios from "axios";
 
 const Dashboard = () => {
   const { dark } = React.useContext(ThemeContext);
   const { user, authLoading } = React.useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
+  const [family, setFamily] = useState("");
   const [products, setProducts] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [activeSubCategory, setActiveSubCategory] = useState(null);
-  const [categoryDropdowns, setCategoryDropdowns] = useState({}); // For managing category dropdowns
-  const [subCategoryDropdowns, setSubCategoryDropdowns] = useState({});
 
   const [filteredData, setFilteredData] = useState([]);
   const [filter, setFilter] = useState("itemname");
@@ -35,6 +26,36 @@ const Dashboard = () => {
   const [order, setOrder] = useState("asc");
   const [headers, setHeaders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const getProducts = async () => {
+    console.log(family);
+    try {
+      setLoading(true);
+      setProducts([]);
+      const res = await axios.post("/api/products/all", { family });
+      if (res.data && res.data.length > 0) {
+        setProducts(res.data);
+      } else {
+        setProducts([]); // Set products to an empty array if no data is returned
+      }
+    } catch (error) {
+      console.log(error);
+      setProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (family) {
+      getProducts();
+    }
+  }, [family]); // Trigger fetch whenever family changes
+
+  React.useEffect(() => {
+    setFilteredData([]); // Clear filtered data when switching families
+    setCurrentPage(1); // Reset pagination
+  }, [family]);
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,24 +75,6 @@ const Dashboard = () => {
       setCurrentPage(newPage);
     }
   };
-
-  useEffect(() => {
-    getCategories(setCategories);
-  }, []);
-
-  useEffect(() => {
-    if (activeCategory) {
-      getSubCategories(activeCategory, setSubCategories);
-      setSubCategoryDropdowns({});
-    }
-  }, [activeCategory]);
-
-  useEffect(() => {
-    if (activeSubCategory) {
-      setLoading(true);
-      getProducts(activeSubCategory, setProducts, setLoading);
-    }
-  }, [activeSubCategory]);
 
   useEffect(() => {
     if (products.length > 0) {
@@ -111,6 +114,8 @@ const Dashboard = () => {
             return 0; // Default fallback
           })
       );
+    } else {
+      setFilteredData([]); // Clear filtered data if no products are available
     }
   }, [products, filter, order, sortProperty, searchTerm]);
 
@@ -145,7 +150,6 @@ const Dashboard = () => {
       <button
         onClick={() => {
           toggleSidebar();
-          setCategoryDropdowns({});
         }}
         className="absolute top-2 left-2 bg-white p-2 rounded-full shadow-md w-[40px] h-[40px] z-50"
       >
@@ -158,16 +162,9 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <SideNav
-        categories={categories}
-        subCategories={subCategories}
-        subCategoryDropdowns={subCategoryDropdowns}
-        categoryDropdowns={categoryDropdowns}
-        setCategoryDropdowns={setCategoryDropdowns}
-        setSubCategoryDropdowns={setSubCategoryDropdowns}
+        getProducts={getProducts}
+        setFamily={setFamily}
         sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-        setActiveCategory={setActiveCategory}
-        setActiveSubCategory={setActiveSubCategory}
       />
 
       {/* Main Content */}
@@ -180,7 +177,9 @@ const Dashboard = () => {
 
         <div>
           {/* Content for Products */}
-          {activeSubCategory ? (
+          {family === "" ? (
+            <DashboardWelcome dark={dark} user={user} setFamily={setFamily} />
+          ) : (
             <div>
               <h1 className=" text-green-800">Welcome {user.email}</h1>
               <h2
@@ -212,8 +211,6 @@ const Dashboard = () => {
                 onAddToCart={addToCart}
               />
             </div>
-          ) : (
-            <DashboardWelcome dark={dark} user={user} />
           )}
         </div>
       </main>

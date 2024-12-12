@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { subCategoryName } = body;
+    const { family } = body;
     const userID = await getDataFromToken(req);
     const client = await clientPromise;
     const db = client.db(process.env.MONGO_DB);
@@ -18,7 +18,7 @@ export async function POST(req) {
     const items = await db
       .collection("item")
       .find({
-        subcategory: subCategoryName,
+        family,
       })
       .toArray();
 

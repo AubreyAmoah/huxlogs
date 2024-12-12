@@ -61,11 +61,11 @@ const ForgotPassword = () => {
       <h1
         className={`${
           dark ? "text-violet-600" : "text-blue-400"
-        } text-2xl max-[600px]:mt-24`}
+        } text-2xl max-[600px]:mt-24 max-[600px]:text-xl max-[400px]:text-base`}
       >
         Forgot Your Password?
       </h1>
-      <p className="text-center max-w-lg">
+      <p className="text-center max-w-lg max-[600px]:text-sm max-[400px]:text-xs">
         Enter your email address below, and we&apos;ll send you a link to reset
         your password.
       </p>
@@ -79,7 +79,7 @@ const ForgotPassword = () => {
             dark
               ? "border-violet-700 text-violet-700 caret-violet-700 bg-white"
               : "border-blue-500 text-blue-500 caret-blue-500 bg-slate-100"
-          } border-2`}
+          } border-2 max-[600px]:text-sm max-[500px]:p-3 max-[400px]:text-xs max-[400px]:p-2`}
           placeholder="Enter your email"
           required
         />
@@ -90,7 +90,7 @@ const ForgotPassword = () => {
             dark
               ? "border border-violet-600 text-violet-600 bg-transparent hover:bg-violet-600 hover:text-black hover:border-black"
               : "border border-blue-400 text-blue-400 bg-transparent hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
-          }`}
+          } max-[600px]:text-sm max-[600px]:p-3 max-[400px]:text-xs max-[400px]:p-2`}
           disabled={loading}
         >
           {loading ? (
@@ -105,7 +105,7 @@ const ForgotPassword = () => {
         <p
           className={`mt-4 text-center ${
             dark ? "text-violet-600" : "text-blue-400"
-          }`}
+          } max-[600px]:text-sm max-[400px]:text-xs`}
         >
           {message}
         </p>
@@ -117,7 +117,7 @@ const ForgotPassword = () => {
           dark
             ? "text-violet-500 hover:text-violet-600"
             : "text-blue-500 hover:text-blue-600"
-        }`}
+        } max-[600px]:text-sm max-[400px]:text-xs`}
       >
         Back to Login
       </Link>

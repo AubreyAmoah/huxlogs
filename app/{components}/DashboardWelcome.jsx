@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const DashboardWelcome = ({ dark, user }) => {
+const DashboardWelcome = ({ dark, user, setFamily }) => {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
@@ -31,7 +31,7 @@ const DashboardWelcome = ({ dark, user }) => {
           </p>
           <div className="space-x-4 max-[570px]:space-y-4">
             <button
-              disabled
+              onClick={() => setFamily("banklogs")}
               className={`${
                 dark ? "text-violet-700" : "text-blue-600"
               } px-6 py-3 bg-white font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-300 max-[800px]:text-sm max-[800px]:px-3`}
@@ -39,28 +39,28 @@ const DashboardWelcome = ({ dark, user }) => {
               Bank Logs
             </button>
             <button
-              disabled
+              onClick={() => setFamily("paypal")}
               className={`${
                 dark ? "text-violet-700" : "text-blue-600"
               } px-6 py-3 bg-white font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-300 max-[800px]:text-sm max-[800px]:px-3`}
             >
-              PayPal Logs
+              Spammed Accounts 1
             </button>
             <button
-              disabled
+              onClick={() => setFamily("cashapp")}
               className={`${
                 dark ? "text-violet-700" : "text-blue-600"
               } px-6 py-3 bg-white font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-300 max-[800px]:text-sm max-[800px]:px-3`}
             >
-              CashApp Logs
+              Spammed Accounts 2
             </button>
             <button
-              disabled
+              onClick={() => setFamily("creditcards")}
               className={`${
                 dark ? "text-violet-700" : "text-blue-600"
               } px-6 py-3 bg-white font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-300 max-[800px]:text-sm max-[800px]:px-3`}
             >
-              Credit Card Logs
+              Cards/Linkables
             </button>
           </div>
         </div>
