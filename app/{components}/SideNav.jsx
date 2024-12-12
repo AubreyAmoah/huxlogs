@@ -56,7 +56,7 @@ const SideNav = ({ setFamily, sidebarOpen }) => {
           : "w-16 max-[700px]:hidden"
       } bg-gradient-to-b ${
         dark ? "from-violet-800 to-black" : "from-blue-300 to-blue-600"
-      } h-screen overflow-auto transition-all duration-300 flex flex-col items-start py-6`}
+      } h-screen overflow-auto transition-all duration-300 flex flex-col items-start py-6 z-40`}
     >
       {/* Logo */}
       <div className="flex items-center px-4 mb-6">
