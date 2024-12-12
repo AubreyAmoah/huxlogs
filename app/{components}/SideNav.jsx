@@ -40,7 +40,7 @@ const SideNav = ({
     { label: "Home", icon: faHome, link: "/pages/dashboard" },
     { label: "Bank Logs", icon: faBank },
     { label: "Cards/Linkables", icon: faCcAmazonPay },
-    { label: "Paypal/Cashapp Logs", icon: faPaypal },
+    { label: "Spammed Accounts", icon: faPaypal },
     { label: "Tools", icon: faTools },
     { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
     { label: "Orders", icon: faCreditCard, link: "/pages/orders" },
