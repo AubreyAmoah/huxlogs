@@ -15,9 +15,12 @@ import {
   faCaretUp,
   faShoppingCart,
   faCreditCard,
+  faBank,
+  faTools,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
+import { faCcAmazonPay, faPaypal } from "@fortawesome/free-brands-svg-icons";
 
 const SideNav = ({
   categories,
@@ -35,10 +38,10 @@ const SideNav = ({
   const { user, onLogout } = React.useContext(AuthContext);
   const menuItems = [
     { label: "Home", icon: faHome, link: "/pages/dashboard" },
-    { label: "Bank Logs", icon: faList },
-    { label: "Credit Card Logs", icon: faList },
-    { label: "Paypal/Cashapp Logs", icon: faList },
-    { label: "Tools", icon: faList },
+    { label: "Bank Logs", icon: faBank },
+    { label: "Credit Card Logs", icon: faCcAmazonPay },
+    { label: "Paypal/Cashapp Logs", icon: faPaypal },
+    { label: "Tools", icon: faTools },
     { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
     { label: "Orders", icon: faCreditCard, link: "/pages/orders" },
     { label: "Logout", icon: faRightFromBracket, onClick: onLogout },
