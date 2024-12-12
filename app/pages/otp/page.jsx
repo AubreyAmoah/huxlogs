@@ -91,7 +91,7 @@ const OTP = () => {
             icon={faSpinner}
             className={`${
               dark ? "text-violet-600" : " text-blue-400"
-            } animate-spin text-7xl max-[600px]:mt-24`}
+            } animate-spin text-7xl max-[600px]:mt-24 max-[600px]:text-2xl`}
           />
           <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
             Loading...
@@ -102,7 +102,7 @@ const OTP = () => {
           <h1
             className={`${
               dark ? "text-violet-600" : "text-blue-400"
-            } text-2xl max-[600px]:mt-24`}
+            } text-2xl max-[600px]:mt-24 max-[600px]:text-xl max-[560px]:text-base max-[420px]:text-sm`}
           >
             ENTER YOUR OTP
           </h1>
@@ -120,7 +120,7 @@ const OTP = () => {
                   dark
                     ? "border-violet-700 border-2 text-violet-700 caret-violet-700 bg-white"
                     : "border-blue-500 border-2 text-blue-500 caret-blue-500 bg-slate-100"
-                } p-4 text-7xl text-center w-[100px] h-[100px] rounded-sm shadow-sm max-[500px]:w-[80px] max-[500px]:h-[80px] max-[500px]:text-5xl max-[410px]:w-[50px] max-[410px]:h-[50px] max-[410px]:text-2xl`}
+                } p-4 text-7xl text-center w-[100px] h-[100px] rounded-sm shadow-sm max-[600px]:w-[80px] max-[600px]:h-[80px] max-[600px]:text-5xl max-[560px]:w-[50px] max-[560px]:h-[50px] max-[560px]:text-2xl max-[420px]:w-[45px] max-[420px]:h-[45px] max-[420px]:text-xs max-[420px]:p-2`}
                 maxLength={1}
                 required
               />
@@ -133,7 +133,7 @@ const OTP = () => {
               dark
                 ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black"
                 : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50"
-            } w-[500px] max-[500px]:w-[90%]`}
+            } w-[500px] max-[600px]:w-[75%] max-[560px]:px-2 max-[560px]:py-2 max-[560px]:text-sm max-[420px]:text-xs`}
           >
             Validate
           </button>

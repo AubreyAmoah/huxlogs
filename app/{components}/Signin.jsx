@@ -56,7 +56,7 @@ const Signin = () => {
     );
 
   return (
-    <div className="flex flex-col items-center gap-6 w-[500px] h-[600px] mt-6 ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:w-full max-[600px]:shadow-none max-[600px]:rounded-none max-[600px]:h-full">
+    <div className="flex flex-col items-center gap-6 w-[500px] h-[600px] mt-6 ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:mt-2 max-[510px]:w-full max-[510px]:shadow-none max-[510px]:rounded-none max-[510px]:h-full">
       {dark ? (
         <Image
           src="/three.png"
@@ -68,7 +68,11 @@ const Signin = () => {
       ) : (
         <Image src="/two.png" alt="App logo" width={120} height={0} priority />
       )}
-      <p className={`${dark ? "text-zinc-50" : "text-black"} max-[510px]:text-sm`}>
+      <p
+        className={`${
+          dark ? "text-zinc-50" : "text-black"
+        } max-[510px]:text-sm max-[510px]:w-[80%] max-[416px]:text-xs`}
+      >
         Constant rise of phishing sites impersoninating HUXLOGS is on the rise
         in massive numbers.{" "}
         <Link
@@ -89,7 +93,7 @@ const Signin = () => {
           dark
             ? "placeholder-zinc-50 text-white"
             : "placeholder-black/30 text-black"
-        } w-full p-3 rounded-lg bg-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400`}
+        } w-full p-3 rounded-lg bg-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 max-[510px]:text-sm max-[510px]:w-[80%] max-[416px]:text-xs`}
         placeholder="Email..."
         required
       />
@@ -107,7 +111,7 @@ const Signin = () => {
           dark
             ? "placeholder-zinc-50 text-white"
             : "placeholder-black/30 text-black"
-        } w-full p-3 rounded-lg bg-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400`}
+        } w-full p-3 rounded-lg bg-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 max-[510px]:text-sm max-[510px]:w-[80%] max-[416px]:text-xs`}
         placeholder="Password..."
         required
       />
@@ -119,17 +123,17 @@ const Signin = () => {
           dark
             ? "rounded-md border border-violet-600 text-violet-600 bg-transparent px-4 py-3 hover:bg-violet-600 hover:text-black hover:border-black"
             : "rounded-md border border-blue-400 text-blue-400 bg-transparent px-4 py-3 hover:bg-blue-400 hover:text-zinc-50 hover:border-zinc-50"
-        } w-full`}
+        } w-full max-[510px]:text-sm max-[510px]:w-[80%] max-[416px]:text-xs`}
       >
         {isSignup ? "Create Account" : "Login"}
       </button>
 
-      <div className="flex justify-between items-center w-full max-[360px]:flex-col">
+      <div className="flex justify-between items-center w-full max-[510px]:text-sm max-[510px]:w-[80%] max-[360px]:flex-col">
         {isSignup ? (
           <button
             className={`${
               dark ? "text-violet-700" : "text-blue-600"
-            } italic text-sm mt-4`}
+            } italic text-sm mt-4 max-[416px]:`}
             onClick={() => setIsSignup(false)}
           >
             Already have an account? Login
@@ -138,7 +142,7 @@ const Signin = () => {
           <button
             className={`${
               dark ? "text-violet-700" : "text-blue-600"
-            } italic text-sm mt-4`}
+            } italic text-sm mt-4 max-[416px]:text-xs`}
             onClick={() => setIsSignup(true)}
           >
             Create a new Account
@@ -151,7 +155,7 @@ const Signin = () => {
           <Link
             className={`${
               dark ? "text-violet-700" : "text-blue-600"
-            } italic text-sm mt-4`}
+            } italic text-sm mt-4 max-[416px]:text-xs`}
             href={`/pages/forgotpassword`}
           >
             forgot password?

@@ -12,7 +12,7 @@ export default function Home() {
         dark ? `bg-black` : `bg-zinc-50`
       }`}
     >
-      <Nav />
+      {/* <Nav /> */}
       <Greeting />
     </div>
   );
