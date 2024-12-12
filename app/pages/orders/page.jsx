@@ -56,7 +56,6 @@ const Orders = () => {
         <Link href={"/pages/dashboard"}>
           <FontAwesomeIcon icon={faHome} />
         </Link>
-        Your Orders
       </h1>
 
       {loading ? (
