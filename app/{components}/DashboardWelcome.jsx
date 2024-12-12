@@ -3,7 +3,7 @@ import React from "react";
 
 const DashboardWelcome = ({ dark, user, setFamily }) => {
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col">
       {/* Navbar */}
       <nav
         className={`${
