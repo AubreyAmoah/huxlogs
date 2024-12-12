@@ -44,7 +44,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
                 dark ? "text-violet-700" : "text-blue-600"
               } px-6 py-3 bg-white font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-300 max-[800px]:text-sm max-[800px]:px-3`}
             >
-              Spammed Accounts 1
+              PayPal Logs
             </button>
             <button
               onClick={() => setFamily("cashapp")}
@@ -52,7 +52,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
                 dark ? "text-violet-700" : "text-blue-600"
               } px-6 py-3 bg-white font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-300 max-[800px]:text-sm max-[800px]:px-3`}
             >
-              Spammed Accounts 2
+              CashApp Logs
             </button>
             <button
               onClick={() => setFamily("creditcards")}

@@ -165,6 +165,7 @@ const Dashboard = () => {
         getProducts={getProducts}
         setFamily={setFamily}
         sidebarOpen={sidebarOpen}
+        setSidberOpen={setSidebarOpen}
       />
 
       {/* Main Content */}

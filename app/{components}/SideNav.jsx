@@ -16,31 +16,43 @@ import Link from "next/link";
 import Image from "next/image";
 import { faCcAmazonPay, faPaypal } from "@fortawesome/free-brands-svg-icons";
 
-const SideNav = ({ setFamily, sidebarOpen }) => {
+const SideNav = ({ setFamily, sidebarOpen, setSidberOpen }) => {
   const { dark } = React.useContext(ThemeContext);
   const { user, onLogout } = React.useContext(AuthContext);
   const menuItems = [
     {
       label: "Home",
       icon: faHome,
-      onClick: () => setFamily(""),
+      onClick: () => {
+        setFamily("");
+        setSidberOpen(false);
+      },
       link: "/pages/dashboard",
     },
     { label: "Bank Logs", icon: faBank, onClick: () => setFamily("banklogs") },
     {
       label: "Cards/Linkables",
       icon: faCreditCard,
-      onClick: () => setFamily("creditcards"),
+      onClick: () => {
+        setFamily("creditcards");
+        setSidberOpen(false);
+      },
     },
     {
-      label: "Spammed Accounts 1",
+      label: "PayPal Logs",
       icon: faPaypal,
-      onClick: () => setFamily("paypal"),
+      onClick: () => {
+        setFamily("paypal");
+        setSidberOpen(false);
+      },
     },
     {
-      label: "Spammed Accounts 2",
+      label: "CashApp Logs",
       icon: faCcAmazonPay,
-      onClick: () => setFamily("cashapp"),
+      onClick: () => {
+        setFamily("cashapp");
+        setSidberOpen(false);
+      },
     },
     { label: "Tools", icon: faTools, onClick: () => setFamily("tools") },
     { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
@@ -113,7 +125,7 @@ const SideNav = ({ setFamily, sidebarOpen }) => {
             );
           }
 
-          if (item.label === "Spammed Accounts 1") {
+          if (item.label === "PayPal Logs") {
             return (
               <div key={item.label} className="w-full">
                 {/* Category Dropdown Toggle */}
@@ -134,7 +146,7 @@ const SideNav = ({ setFamily, sidebarOpen }) => {
             );
           }
 
-          if (item.label === "Spammed Accounts 2") {
+          if (item.label === "CashApp Logs") {
             return (
               <div key={item.label} className="w-full">
                 {/* Category Dropdown Toggle */}
