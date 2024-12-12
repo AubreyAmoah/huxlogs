@@ -39,10 +39,9 @@ export async function POST(req) {
     // Hash the password
     const hashedPassword = await hash(password);
 
-    // Insert the new user into the "admin" collection
     const result = await db
       .collection("user")
-      .insertOne({ email, hashedPassword });
+      .insertOne({ email, hashedPassword, active: true });
 
     return NextResponse.json(
       {
