@@ -29,7 +29,14 @@ const SideNav = ({ setFamily, sidebarOpen, setSidberOpen }) => {
       },
       link: "/pages/dashboard",
     },
-    { label: "Bank Logs", icon: faBank, onClick: () => setFamily("banklogs") },
+    {
+      label: "Bank Logs",
+      icon: faBank,
+      onClick: () => {
+        setFamily("banklogs");
+        setSidberOpen(false);
+      },
+    },
     {
       label: "Cards/Linkables",
       icon: faCreditCard,
