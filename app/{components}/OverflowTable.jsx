@@ -61,17 +61,19 @@ const OverflowTable = ({
             onChange={(e) => setFilter(e.target.value)}
             className={`bg-blue-500 text-white px-4 py-2 rounded-md`}
           >
-            <option value="">Filter by</option>
+            <option value="itemname">Search by</option>
             {headers
               .filter((header) => header !== "_id")
               .filter((header) => header !== "createdAt")
               .filter((header) => header !== "type")
+              .filter((header) => header !== "gender")
+              .filter((header) => header !== "family")
               .map((header) => (
                 <option key={header} value={header}>
                   {header === "itemname"
-                    ? "product"
+                    ? "product name"
                     : header === "subcategory"
-                    ? "category"
+                    ? "country / category"
                     : header}
                 </option>
               ))}
@@ -82,17 +84,26 @@ const OverflowTable = ({
             onChange={(e) => setSortProperty(e.target.value)}
             className={`bg-blue-500 text-white px-4 py-2 rounded-md`}
           >
-            <option value="">Sort by</option>
+            <option value="itemname">Sort by</option>
             {headers
               .filter(
                 (header) =>
+                  header === "itemname" ||
                   header === "price" ||
                   header === "balance" ||
-                  header === "createdAt"
+                  header === "createdAt" ||
+                  header === "subcategory" ||
+                  header === "gender"
               )
               .map((header) => (
                 <option key={header} value={header}>
-                  {header === "createdAt" ? "date added" : header}
+                  {header === "createdAt"
+                    ? "date added"
+                    : header === "subcategory"
+                    ? "country / category"
+                    : header === "itemname"
+                    ? "product name"
+                    : header}
                 </option>
               ))}
           </select>
@@ -127,6 +138,9 @@ const OverflowTable = ({
                 .filter((header) => header !== "_id")
                 .filter((header) => header !== "createdAt")
                 .filter((header) => header !== "type")
+                .filter((header) => header !== "subcategory")
+                .filter((header) => header !== "gender")
+                .filter((header) => header !== "family")
                 .map((header) => (
                   <th
                     key={header}
@@ -151,6 +165,9 @@ const OverflowTable = ({
                   .filter((header) => header !== "_id")
                   .filter((header) => header !== "createdAt")
                   .filter((header) => header !== "type")
+                  .filter((header) => header !== "subcategory")
+                  .filter((header) => header !== "gender")
+                  .filter((header) => header !== "family")
                   .map((header) => (
                     <td
                       key={`${item._id}-${header}`}
