@@ -29,6 +29,9 @@ export async function POST(req) {
       );
     }
 
+    if (user.active === false)
+      return NextResponse.json({ error: "Account suspended" }, { status: 401 });
+
     const validPassword = await argon.verify(user.hashedPassword, password);
 
     if (!validPassword) {
