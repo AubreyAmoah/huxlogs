@@ -156,9 +156,15 @@ const Cart = () => {
           </div>
 
           <div className="text-center flex gap-2 items-center w-full mt-4 justify-center text-xl max-[406px]:text-base max-[320px]:flex-wrap">
-            {isBitcoin
-              ? "bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem"
-              : "LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz"}
+            {isBitcoin ? (
+              <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
+                bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem
+              </span>
+            ) : (
+              <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
+                LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz
+              </span>
+            )}
             <button onClick={handleCopy}>
               <FontAwesomeIcon icon={faCopy} />
             </button>
