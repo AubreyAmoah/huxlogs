@@ -11,6 +11,7 @@ import {
   faCreditCard,
   faBank,
   faTools,
+  faFileInvoiceDollar,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
@@ -63,7 +64,7 @@ const SideNav = ({ setFamily, sidebarOpen, setSidberOpen }) => {
     },
     { label: "Tools", icon: faTools, onClick: () => setFamily("tools") },
     { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
-    { label: "Orders", icon: faCreditCard, link: "/pages/orders" },
+    { label: "Orders", icon: faFileInvoiceDollar, link: "/pages/orders" },
     { label: "Logout", icon: faRightFromBracket, onClick: onLogout },
   ];
 

@@ -5,6 +5,7 @@ import { AuthContext } from "@/app/context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
+  faBasketShopping,
   faCaretDown,
   faHome,
   faSpinner,
@@ -53,9 +54,14 @@ const Orders = () => {
           dark ? "text-violet-600" : "text-blue-400"
         } flex gap-2 items-end`}
       >
-        <Link href={"/pages/dashboard"}>
-          <FontAwesomeIcon icon={faHome} />
-        </Link>
+        <div className="flex gap-4 items-center">
+          <Link href={"/pages/dashboard"}>
+            <FontAwesomeIcon icon={faHome} />
+          </Link>
+          <Link href={"/pages/cart"}>
+            <FontAwesomeIcon icon={faBasketShopping} />
+          </Link>
+        </div>
       </h1>
 
       {loading ? (

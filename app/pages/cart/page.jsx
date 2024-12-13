@@ -5,6 +5,7 @@ import { AuthContext } from "@/app/context/AuthContext";
 import {
   faBitcoinSign,
   faCopy,
+  faFileInvoiceDollar,
   faHome,
   faLitecoinSign,
   faSpinner,
@@ -97,9 +98,14 @@ const Cart = () => {
           dark ? "text-violet-600" : "text-blue-400"
         } mb-8 capitalize text-xl max-[320px]:text-center max-[320px]:text-xl max-[320px]:pt-4`}
       >
-        <Link href={"/pages/dashboard"}>
-          <FontAwesomeIcon icon={faHome} />
-        </Link>
+        <div className="flex gap-4 items-center">
+          <Link href={"/pages/dashboard"}>
+            <FontAwesomeIcon icon={faHome} />
+          </Link>
+          <Link href={"/pages/orders"}>
+            <FontAwesomeIcon icon={faFileInvoiceDollar} />
+          </Link>
+        </div>
       </h1>
 
       <div className={`flex flex-col lg:flex-row gap-6 max-[320px]:gap-0`}>
