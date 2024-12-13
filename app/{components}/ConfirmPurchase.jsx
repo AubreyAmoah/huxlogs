@@ -26,9 +26,9 @@ const ConfirmPurchase = ({
   };
   return (
     <div
-      className={`${
+      className={`fixed  ${
         visible
-          ? "sticky top-0 left-0 w-full h-screen bg-[#00000079] flex flex-col items-center justify-center max-[600px]:justify-start z-30"
+          ? "top-0 left-0 w-full h-full bg-[#00000079] flex flex-col items-center justify-center max-[600px]:justify-start z-50"
           : "hidden"
       }`}
     >

@@ -87,9 +87,9 @@ const Cart = () => {
 
   return (
     <div
-      className={`relative min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${
+      className={`min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${
         dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black"
-      }`}
+      } relative`}
     >
       {/* Header Navigation */}
       <h1
@@ -209,7 +209,9 @@ const Cart = () => {
 
           <div className="space-y-4 mt-6">
             <div>
-              <p className="font-bold mt-2">Order Total: ${totalPrice.toFixed(2)}</p>
+              <p className="font-bold mt-2">
+                Order Total: ${totalPrice.toFixed(2)}
+              </p>
             </div>
           </div>
 
