@@ -17,7 +17,7 @@ const Page = () => {
     <Suspense
       fallback={
         <div className="flex flex-col items-center justify-center h-screen bg-[#E7EAEE] text-black">
-          <FontAwesomeIcon icon={faSpinner} className="animate-spin text-8xl" />
+          <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
           <p className="mt-4">Loading...</p>
         </div>
       }

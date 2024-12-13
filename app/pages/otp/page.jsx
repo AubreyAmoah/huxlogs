@@ -91,7 +91,7 @@ const OTP = () => {
             icon={faSpinner}
             className={`${
               dark ? "text-violet-600" : " text-blue-400"
-            } animate-spin text-7xl max-[600px]:mt-24 max-[600px]:text-2xl`}
+            } animate-spin`}
           />
           <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
             Loading...

@@ -35,7 +35,7 @@ const OverflowTable = ({
           icon={faSpinner}
           className={`${
             dark ? "text-violet-600" : " text-blue-400"
-          } animate-spin text-8xl`}
+          } animate-spin`}
         />
         <span className={`${dark ? "text-violet-600" : " text-blue-400"}`}>
           Loading...
