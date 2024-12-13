@@ -78,7 +78,7 @@ const Orders = () => {
                   >
                     <h3 className="font-bold">Order ID: {order._id}</h3>
                     <p>Status: {order.status}</p>
-                    <p>Total: ${order.total}</p>
+                    <p>Total: ${order.total.toFixed(2)}</p>
                     <p>Items: {order.items.length}</p>
                   </div>
                 ))}
@@ -91,7 +91,9 @@ const Orders = () => {
           {/* Completed Orders Section */}
           <div>
             <h2 className="text-2xl mb-4 font-semibold">Completed Orders</h2>
-            <p className="mb-4">All completed orders are fowarded to your mail</p>
+            <p className="mb-4">
+              All completed orders are fowarded to your mail
+            </p>
             {completedOrders.length > 0 ? (
               <div className="space-y-4">
                 {completedOrders.map((order) => (
@@ -103,7 +105,7 @@ const Orders = () => {
                   >
                     <h3 className="font-bold">Order ID: {order._id}</h3>
                     <p>Status: {order.status}</p>
-                    <p>Total: ${order.total}</p>
+                    <p>Total: ${order.total.toFixed(2)}</p>
                     <p>Items: {order.items.length}</p>
                   </div>
                 ))}

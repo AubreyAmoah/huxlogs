@@ -209,7 +209,7 @@ const Cart = () => {
 
           <div className="space-y-4 mt-6">
             <div>
-              <p className="font-bold mt-2">Order Total: ${totalPrice}</p>
+              <p className="font-bold mt-2">Order Total: ${totalPrice.toFixed(2)}</p>
             </div>
           </div>
 

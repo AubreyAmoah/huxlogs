@@ -28,7 +28,7 @@ const ConfirmPurchase = ({
     <div
       className={`${
         visible
-          ? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#00000079] flex flex-col items-center justify-center max-[600px]:justify-start"
+          ? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full min-h-screen bg-[#00000079] flex flex-col items-center justify-center max-[600px]:justify-start"
           : "hidden"
       }`}
     >
@@ -58,8 +58,9 @@ const ConfirmPurchase = ({
         </p>
 
         <p className="text-red-600 font-bold mt-6">
-          Please pay the exact amount as seen on the site. Over paying won&apos;t be
-          refunded. We won&apos;t release your product to you if you under pay also
+          Please pay the exact amount as seen on the site. Over paying
+          won&apos;t be refunded. We won&apos;t release your product to you if
+          you under pay also
         </p>
 
         <button
