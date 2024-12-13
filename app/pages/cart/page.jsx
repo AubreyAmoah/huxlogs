@@ -87,8 +87,8 @@ const Cart = () => {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${
-        dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black relative"
+      className={`relative min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${
+        dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black"
       }`}
     >
       {/* Header Navigation */}
