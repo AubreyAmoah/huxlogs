@@ -72,11 +72,11 @@ const SideNav = ({ setFamily, sidebarOpen, setSidberOpen }) => {
     <aside
       className={`${
         sidebarOpen
-          ? "w-64 max-[970px]:absolute max-[970px]:top-0 max-[970px]:left-0"
-          : "w-16 max-[700px]:hidden"
+          ? "w-64 transform translate-x-0 max-[970px]:absolute max-[970px]:inset-0 max-[970px]:top-0 max-[970px]:left-0 max-[970px]:shadow-md max-[970px]:h-full"
+          : "w-16 transform max-[700px]:-translate-x-full max-[700px]:hidden"
       } bg-gradient-to-b ${
         dark ? "from-violet-800 to-black" : "from-blue-300 to-blue-600"
-      } min-h-screen overflow-auto transition-all duration-300 flex flex-col items-start py-6 z-40`}
+      } h-screen overflow-auto transition-all duration-300 ease-in-out flex flex-col items-start py-6 z-40`}
     >
       {/* Logo */}
       <div className="flex items-center px-4 mb-6">

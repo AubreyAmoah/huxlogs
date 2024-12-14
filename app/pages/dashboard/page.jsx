@@ -89,7 +89,7 @@ const Dashboard = () => {
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase());
             }
-            return item[value].includes(searchTerm);
+            return item[value].toString().includes(searchTerm.toString());
           })
           .sort((a, b) => {
             const sortKey = sortProperty;
@@ -123,7 +123,7 @@ const Dashboard = () => {
     return (
       <div
         className={`${
-          dark ? `bg-black` : `bg-zinc-50`
+          dark ? `bg-[#191F28]` : `bg-zinc-50`
         } h-screen flex flex-col items-center justify-center`}
       >
         <FontAwesomeIcon
@@ -141,7 +141,7 @@ const Dashboard = () => {
   return (
     <div
       className={`relative flex min-h-screen max-[700px]:flex-col ${
-        dark ? `bg-black` : `bg-zinc-50`
+        dark ? `bg-[#191F28]` : `bg-zinc-50`
       }`}
     >
       <ThemeToggler />

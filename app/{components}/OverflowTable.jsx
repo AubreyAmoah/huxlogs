@@ -45,7 +45,7 @@ const OverflowTable = ({
   return (
     <div
       className={`${
-        dark ? "bg-[#2c2c2c] text-zinc-50" : "bg-white text-black"
+        dark ? "bg-[#283241] text-zinc-50" : "bg-white text-black"
       } w-full overflow-x-auto p-4 shadow rounded-lg relative`}
     >
       {/* Search and Filter Bar */}
@@ -144,7 +144,7 @@ const OverflowTable = ({
                 .map((header) => (
                   <th
                     key={header}
-                    className={`px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[300px] max-[600px]:min-w-[250px] max-[600px]:px-2`}
+                    className={`px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[200px] max-[600px]:min-w-[150px] max-[600px]:px-2`}
                   >
                     {header === "itemname"
                       ? "Product"
@@ -171,7 +171,7 @@ const OverflowTable = ({
                   .map((header) => (
                     <td
                       key={`${item._id}-${header}`}
-                      className="px-4 py-2 min-w-[300px] overflow-auto max-[600px]:min-w-[250px] max-[600px]:px-2"
+                      className="px-4 py-2 min-w-[200px] max-[600px]:min-w-[100px] overflow-auto max-[600px]:text-xs max-[600px]:px-2"
                     >
                       {header === "balance" || header === "price"
                         ? `$ ${item[header]}`

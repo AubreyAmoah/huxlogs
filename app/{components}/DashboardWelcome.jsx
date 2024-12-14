@@ -69,7 +69,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
       {/* Features Section */}
       <section
         className={`py-16 ${
-          dark ? "bg-[#000] text-gray-100" : "bg-gray-100 text-black"
+          dark ? "bg-[#191F28] text-gray-100" : "bg-gray-100 text-black"
         }`}
       >
         <div className="container mx-auto text-center">
@@ -80,7 +80,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
             {/* Feature 1 */}
             <div
               className={`${
-                dark ? "bg-[#222] text-white" : "bg-white text-gray-700"
+                dark ? "bg-[#232c38] text-white" : "bg-white text-gray-700"
               } p-6 rounded-lg shadow-lg`}
             >
               <h4 className="text-2xl font-bold mb-2">Fast & Secure</h4>
@@ -92,7 +92,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
             {/* Feature 2 */}
             <div
               className={`${
-                dark ? "bg-[#222] text-white" : "bg-white text-gray-700"
+                dark ? "bg-[#232c38] text-white" : "bg-white text-gray-700"
               } p-6 rounded-lg shadow-lg`}
             >
               <h4 className="text-2xl font-bold mb-2">Customizable Options</h4>
@@ -104,7 +104,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
             {/* Feature 3 */}
             <div
               className={`${
-                dark ? "bg-[#222] text-white" : "bg-white text-gray-700"
+                dark ? "bg-[#232c38] text-white" : "bg-white text-gray-700"
               } p-6 rounded-lg shadow-lg`}
             >
               <h4 className="text-2xl font-bold mb-2">User-Friendly</h4>
@@ -116,7 +116,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
             {/* Feature 4 */}
             <div
               className={`${
-                dark ? "bg-[#222] text-white" : "bg-white text-gray-700"
+                dark ? "bg-[#232c38] text-white" : "bg-white text-gray-700"
               } p-6 rounded-lg shadow-lg`}
             >
               <h4 className="text-2xl font-bold mb-2">24/7 Support</h4>

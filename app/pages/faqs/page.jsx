@@ -43,7 +43,7 @@ export default function FAQ() {
   return (
     <div
       className={`relative h-screen w-screen px-20 py-10 max-[800px]:px-16 max-[500px]:px-10 ${
-        dark ? "bg-black" : "bg-zinc-50"
+        dark ? "bg-[#191F28]" : "bg-zinc-50"
       }`}
     >
       <Nav />

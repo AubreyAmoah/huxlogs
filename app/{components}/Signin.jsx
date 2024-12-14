@@ -40,7 +40,7 @@ const Signin = () => {
     return (
       <div
         className={`${
-          dark ? `bg-black` : `bg-zinc-50`
+          dark ? `bg-[#191F28]` : `bg-zinc-50`
         } h-screen flex flex-col items-center justify-center`}
       >
         <FontAwesomeIcon

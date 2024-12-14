@@ -24,13 +24,22 @@ const Cart = () => {
 
   const [loading, setLoading] = React.useState(false);
   const [isBitcoin, setIsBitcoin] = React.useState(true);
+  const [isSolana, setSolana] = React.useState(false);
+  const [isLitecoin, setLitecoin] = React.useState(false);
+  const [isUsdt, setUsdt] = React.useState(false);
   const [cartItems, setCartItems] = React.useState([]);
   const [visible, setVisible] = React.useState(false);
 
   const handleCopy = () => {
     const address = isBitcoin
       ? "bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem"
-      : "LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz";
+      : isSolana
+      ? "6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY"
+      : isLitecoin
+      ? "LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz"
+      : isUsdt
+      ? "TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE"
+      : address;
     navigator.clipboard
       .writeText(address)
       .then(() => {
@@ -42,7 +51,33 @@ const Cart = () => {
   };
 
   const toggleCurrency = () => {
-    setIsBitcoin(!isBitcoin);
+    if (isBitcoin) {
+      setIsBitcoin(false);
+      setSolana(true);
+      setLitecoin(false);
+      setUsdt(false);
+    }
+
+    if (isSolana) {
+      setIsBitcoin(false);
+      setSolana(false);
+      setLitecoin(true);
+      setUsdt(false);
+    }
+
+    if (isLitecoin) {
+      setIsBitcoin(false);
+      setSolana(false);
+      setLitecoin(false);
+      setUsdt(true);
+    }
+
+    if (isUsdt) {
+      setIsBitcoin(true);
+      setSolana(false);
+      setLitecoin(false);
+      setUsdt(false);
+    }
   };
 
   const fetchCartItems = async () => {
@@ -89,7 +124,7 @@ const Cart = () => {
   return (
     <div
       className={`min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${
-        dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black"
+        dark ? "bg-[#191F28] text-zinc-50" : "bg-zinc-50 text-black"
       } relative`}
     >
       {/* Header Navigation */}
@@ -112,14 +147,14 @@ const Cart = () => {
         {/* Payment Details Form */}
         <div
           className={`${
-            dark ? "bg-[#252525]" : "bg-white"
+            dark ? "bg-[#232c38]" : "bg-white"
           } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
         >
           <div className="flex flex-col w-full items-center mb-2 max-[530px]:text-sm">
             <h3
               className={`text-lg font-semibold mb-4 max-[530px]:text-sm max-[430px]:text-xs`}
             >
-              Current Payment currency is {isBitcoin ? "Bitcoin" : "Litecoin"}
+              Click the button below to switch between payments
             </h3>
             <button
               onClick={toggleCurrency}
@@ -129,16 +164,20 @@ const Cart = () => {
                   : "rounded-md border border-blue-400 text-zinc-50 bg-blue-400 px-4 py-3 max-[530px]:px-2 max-[530px]:py-2 hover:bg-blue-600 hover:text-zinc-50"
               }`}
             >
-              {isBitcoin ? (
-                <>
-                  <FontAwesomeIcon icon={faLitecoinSign} /> Litecoin
-                </>
-              ) : (
-                <>
-                  <FontAwesomeIcon icon={faBitcoinSign} /> Bitcoin
-                </>
-              )}
+              change currency
             </button>
+            <span>
+              current currency:{" "}
+              {isBitcoin
+                ? "BTC"
+                : isLitecoin
+                ? "LTC"
+                : isSolana
+                ? "SOL"
+                : isUsdt
+                ? "USDT"
+                : "N/A"}
+            </span>
           </div>
 
           <div className="w-full flex flex-col gap-4 items-center">
@@ -150,7 +189,15 @@ const Cart = () => {
                 height={0}
                 priority
               />
-            ) : (
+            ) : isSolana ? (
+              <Image
+                src="/solana.jpeg"
+                alt="Solana logo"
+                width={300}
+                height={0}
+                priority
+              />
+            ) : isLitecoin ? (
               <Image
                 src="/litecoin.jpeg"
                 alt="Litecoin logo"
@@ -158,6 +205,16 @@ const Cart = () => {
                 height={0}
                 priority
               />
+            ) : isUsdt ? (
+              <Image
+                src="/usdt.jpeg"
+                alt="Litecoin logo"
+                width={300}
+                height={0}
+                priority
+              />
+            ) : (
+              <Image src="" alt="logo" width={300} height={0} priority />
             )}
           </div>
 
@@ -166,10 +223,20 @@ const Cart = () => {
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
                 bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem
               </span>
-            ) : (
+            ) : isSolana ? (
+              <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
+                6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY
+              </span>
+            ) : isLitecoin ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
                 LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz
               </span>
+            ) : isUsdt ? (
+              <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
+                TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE
+              </span>
+            ) : (
+              ""
             )}
             <button onClick={handleCopy}>
               <FontAwesomeIcon icon={faCopy} />
@@ -180,7 +247,7 @@ const Cart = () => {
         {/* Shopping Cart Summary */}
         <div
           className={`${
-            dark ? "bg-[#252525]" : "bg-white"
+            dark ? "bg-[#232c38]" : "bg-white"
           } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
         >
           <h3 className="text-lg font-semibold mb-4">Shopping cart</h3>
@@ -235,6 +302,16 @@ const Cart = () => {
           ) : (
             <p></p>
           )}
+          <h1 className="text-xl mt-2 max-[600px]:text-base">Manual Payment</h1>
+          <p className="mt-2 max-[600px]:text-sm">
+            You can make a manual payment to cover an outstanding balance.
+            <br />
+            Contact{" "}
+            <a className="text-green-600" href="T.me/huxlogs_support">
+              admin
+            </a>{" "}
+            to make amanual payment
+          </p>
         </div>
       </div>
 

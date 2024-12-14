@@ -46,7 +46,7 @@ const Orders = () => {
   return (
     <div
       className={`min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 ${
-        dark ? "bg-black text-zinc-50" : "bg-zinc-50 text-black"
+        dark ? "bg-[#191F28] text-zinc-50" : "bg-zinc-50 text-black"
       }`}
     >
       <h1
@@ -79,7 +79,7 @@ const Orders = () => {
                   <div
                     key={order._id}
                     className={`${
-                      dark ? "bg-[#252525]" : "bg-white"
+                      dark ? "bg-[#232c38]" : "bg-white"
                     } p-4 rounded-lg shadow-lg`}
                   >
                     <h3 className="font-bold">Order ID: {order._id}</h3>
@@ -106,7 +106,7 @@ const Orders = () => {
                   <div
                     key={order._id}
                     className={`${
-                      dark ? "bg-[#252525]" : "bg-white"
+                      dark ? "bg-[#232c38]" : "bg-white"
                     } p-4 rounded-lg shadow-lg`}
                   >
                     <h3 className="font-bold">Order ID: {order._id}</h3>

@@ -62,7 +62,7 @@ const OTP = () => {
   return (
     <div
       className={`relative flex flex-col gap-4 items-center justify-center min-h-screen w-screen px-8 max-[600px]:justify-start ${
-        dark ? `bg-black` : `bg-zinc-50`
+        dark ? `bg-[#191F28]` : `bg-zinc-50`
       }`}
     >
       <Link href={"/"} className="absolute top-2 left-2">
