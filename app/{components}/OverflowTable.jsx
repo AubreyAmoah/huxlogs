@@ -144,7 +144,11 @@ const OverflowTable = ({
                 .map((header) => (
                   <th
                     key={header}
-                    className={`px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[200px] max-[600px]:min-w-[150px] max-[600px]:px-2`}
+                    className={`px-4 py-2 text-white font-semibold border-b border-gray-200 max-[600px]:px-2 max-[600px]:text-sm ${
+                      header === "price" || header === "balance"
+                        ? "min-w-[100px]"
+                        : "min-w-[200px] max-[600px]:min-w-[150px]"
+                    }`}
                   >
                     {header === "itemname"
                       ? "Product"
@@ -153,7 +157,7 @@ const OverflowTable = ({
                       : header}
                   </th>
                 ))}
-              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[130px] max-[600px]:px-2">
+              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[130px] max-[600px]:px-2 max-[600px]:text-sm">
                 Add to cart
               </th>
             </tr>
@@ -171,7 +175,11 @@ const OverflowTable = ({
                   .map((header) => (
                     <td
                       key={`${item._id}-${header}`}
-                      className="px-4 py-2 min-w-[200px] max-[600px]:min-w-[100px] overflow-auto max-[600px]:text-xs max-[600px]:px-2"
+                      className={`px-4 py-2 overflow-auto max-[600px]:text-xs max-[600px]:px-2 ${
+                        header === "price" || header === "balance"
+                          ? "min-w-[100px]"
+                          : "min-w-[200px] max-[600px]:min-w-[100px]"
+                      }`}
                     >
                       {header === "balance" || header === "price"
                         ? `$ ${item[header]}`
@@ -188,10 +196,10 @@ const OverflowTable = ({
                   {item.available} pcs.
                 </span>
               </td> */}
-                <td className="px-4 py-2 text-left max-[600px]:px-2">
+                <td className="px-4 py-2 text-left max-[600px]:px-2 max-[600px]:text-xs">
                   <button
                     onClick={() => onAddToCart(item._id, setLoading)}
-                    className="px-2 py-1 text-sm text-white bg-green-500 rounded-md hover:bg-green-600"
+                    className="px-2 py-1 text-sm text-white bg-green-500 rounded-md hover:bg-green-600 max-[600px]:text-center"
                   >
                     <FontAwesomeIcon icon={faShoppingCart} />
                   </button>
