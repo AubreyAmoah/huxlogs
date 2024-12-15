@@ -185,7 +185,7 @@ const Cart = () => {
               <Image
                 src="/bitcoin.jpeg"
                 alt="Bitcoin logo"
-                width={300}
+                width={200}
                 height={0}
                 priority
               />
@@ -193,7 +193,7 @@ const Cart = () => {
               <Image
                 src="/solana.jpeg"
                 alt="Solana logo"
-                width={300}
+                width={200}
                 height={0}
                 priority
               />
@@ -201,7 +201,7 @@ const Cart = () => {
               <Image
                 src="/litecoin.jpeg"
                 alt="Litecoin logo"
-                width={300}
+                width={200}
                 height={0}
                 priority
               />
@@ -209,12 +209,12 @@ const Cart = () => {
               <Image
                 src="/usdt.jpeg"
                 alt="Litecoin logo"
-                width={300}
+                width={200}
                 height={0}
                 priority
               />
             ) : (
-              <Image src="" alt="logo" width={300} height={0} priority />
+              <Image src="" alt="logo" width={200} height={0} priority />
             )}
           </div>
 
