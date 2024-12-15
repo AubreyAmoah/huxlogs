@@ -169,13 +169,13 @@ const Cart = () => {
             <span>
               current currency:{" "}
               {isBitcoin
-                ? "BTC"
+                ? "BTC <br /> <p>send only to this address via the Bitcoin network. Sending any other token will result in loss of assets.</p>"
                 : isLitecoin
-                ? "LTC"
+                ? "LTC <br /> <p>send only Litecoin (LTC) to this address. Sending any other token will result in loss of assets.</p>"
                 : isSolana
                 ? "SOL"
                 : isUsdt
-                ? "USDT"
+                ? "USDT <br /> <p>send only Tether (Tron/TRC 20) to this address via BEP-20 network. Sending any other token will result in loss of assets.</p>"
                 : "N/A"}
             </span>
           </div>
@@ -302,12 +302,14 @@ const Cart = () => {
           ) : (
             <p></p>
           )}
-          <h1 className="text-xl mt-2 max-[600px]:text-base">Manual Payment</h1>
+          <h1 className="text-xl mt-2 max-[600px]:text-base text-red-600 animate-pulse">
+            Manual Payment
+          </h1>
           <p className="mt-2 max-[600px]:text-sm">
             You can make a manual payment to cover an outstanding balance.
             <br />
             Contact{" "}
-            <a className="text-green-600" href="T.me/huxlogs_support">
+            <a className="text-green-600" href="https://t.me/huxlogs_support">
               admin
             </a>{" "}
             to make a manual payment

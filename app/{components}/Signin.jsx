@@ -59,6 +59,7 @@ const Signin = () => {
     <div className="flex flex-col items-center gap-6 w-[500px] h-[600px] mt-6 ml-auto mr-auto text-center p-4 rounded-sm shadow-md max-[600px]:mt-2 max-[510px]:w-full max-[510px]:shadow-none max-[510px]:rounded-none max-[510px]:h-full">
       {dark ? (
         <Image
+          className="mt-8"
           src="/one.png"
           alt="App logo"
           width={120}
@@ -66,7 +67,14 @@ const Signin = () => {
           priority
         />
       ) : (
-        <Image src="/two.png" alt="App logo" width={120} height={0} priority />
+        <Image
+          className="mt-8"
+          src="/two.png"
+          alt="App logo"
+          width={120}
+          height={0}
+          priority
+        />
       )}
       <p
         className={`${
