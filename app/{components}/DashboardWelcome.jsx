@@ -11,7 +11,15 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
         } text-white p-4 shadow-md`}
       >
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">HuxLogs</h1>
+          <h1 className="text-xl font-bold">
+            {" "}
+            <Image
+              src={dark ? "/one.png" : "/two.png"}
+              alt="App logo"
+              width={150}
+              height={0}
+            />
+          </h1>
           <p className="max-[400px]:hidden">Welcome {user.email}</p>
         </div>
       </nav>

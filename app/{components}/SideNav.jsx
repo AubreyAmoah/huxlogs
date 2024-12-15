@@ -81,7 +81,7 @@ const SideNav = ({ setFamily, sidebarOpen, setSidberOpen }) => {
       {/* Logo */}
       <div className="flex items-center px-4 mb-6">
         <Image
-          src={dark ? "/three.png" : "/two.png"}
+          src={dark ? "/one.png" : "/two.png"}
           alt="App logo"
           width={sidebarOpen ? 150 : 50}
           height={50}
