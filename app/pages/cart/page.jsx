@@ -169,13 +169,13 @@ const Cart = () => {
             <span>
               current currency:{" "}
               {isBitcoin
-                ? "BTC <br /> <p>send only to this address via the Bitcoin network. Sending any other token will result in loss of assets.</p>"
+                ? `BTC <br /> <p>send only to this address via the Bitcoin network. Sending any other token will result in loss of assets.</p>`
                 : isLitecoin
-                ? "LTC <br /> <p>send only Litecoin (LTC) to this address. Sending any other token will result in loss of assets.</p>"
+                ? `LTC <br /> <p>send only Litecoin (LTC) to this address. Sending any other token will result in loss of assets.</p>`
                 : isSolana
-                ? "SOL"
+                ? `SOL <br /> <p>send only Solana (SOL) to this address. Sending any other token will result in loss of assets.</p>`
                 : isUsdt
-                ? "USDT <br /> <p>send only Tether (Tron/TRC 20) to this address via BEP-20 network. Sending any other token will result in loss of assets.</p>"
+                ? `USDT <br /> <p>send only Tether (Tron/TRC 20) to this address via BEP-20 network. Sending any other token will result in loss of assets.</p>`
                 : "N/A"}
             </span>
           </div>
