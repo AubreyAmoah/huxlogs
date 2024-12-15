@@ -28,7 +28,6 @@ const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const getProducts = async () => {
-    console.log(family);
     try {
       setLoading(true);
       setProducts([]);

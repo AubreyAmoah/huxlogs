@@ -62,7 +62,14 @@ const SideNav = ({ setFamily, sidebarOpen, setSidberOpen }) => {
         setSidberOpen(false);
       },
     },
-    { label: "Tools", icon: faTools, onClick: () => setFamily("tools") },
+    {
+      label: "Tools",
+      icon: faTools,
+      onClick: () => {
+        setFamily("tools");
+        setSidberOpen(false);
+      },
+    },
     { label: "Cart", icon: faShoppingCart, link: "/pages/cart" },
     { label: "Orders", icon: faFileInvoiceDollar, link: "/pages/orders" },
     { label: "Logout", icon: faRightFromBracket, onClick: onLogout },
@@ -79,12 +86,12 @@ const SideNav = ({ setFamily, sidebarOpen, setSidberOpen }) => {
       } h-screen overflow-auto transition-all duration-300 ease-in-out flex flex-col items-start py-6 z-40`}
     >
       {/* Logo */}
-      <div className="flex items-center px-4 mb-6">
+      <div className="flex items-center px-4 mb-6 mt-4">
         <Image
           src={dark ? "/one.png" : "/two.png"}
           alt="App logo"
-          width={sidebarOpen ? 150 : 50}
-          height={50}
+          width={sidebarOpen ? 100 : 50}
+          height={0}
         />
       </div>
 
