@@ -16,7 +16,7 @@ const DashboardWelcome = ({ dark, user, setFamily }) => {
             <Image
               src={dark ? "/one.png" : "/two.png"}
               alt="App logo"
-              width={150}
+              width={100}
               height={0}
             />
           </h1>
