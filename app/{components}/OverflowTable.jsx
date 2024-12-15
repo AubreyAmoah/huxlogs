@@ -141,12 +141,15 @@ const OverflowTable = ({
                 .filter((header) => header !== "subcategory")
                 .filter((header) => header !== "gender")
                 .filter((header) => header !== "family")
+                .filter((header) => header !== "updatedAt")
                 .map((header) => (
                   <th
                     key={header}
                     className={`px-4 py-2 text-white font-semibold border-b border-gray-200 max-[600px]:px-2 max-[600px]:text-sm ${
                       header === "price" || header === "balance"
-                        ? "min-w-[100px]"
+                        ? "min-w-[120px] max-[600px]:min-w-[80px] "
+                        : header === "itemname"
+                        ? "min-w-[120px] max-[600px]:min-w-[100px]"
                         : "min-w-[200px] max-[600px]:min-w-[150px]"
                     }`}
                   >
@@ -157,8 +160,8 @@ const OverflowTable = ({
                       : header}
                   </th>
                 ))}
-              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[130px] max-[600px]:px-2 max-[600px]:text-sm">
-                Add to cart
+              <th className="px-4 py-2 text-white font-semibold border-b border-gray-200 min-w-[50px] max-[600px]:px-2 max-[600px]:text-sm">
+                
               </th>
             </tr>
           </thead>
@@ -172,12 +175,17 @@ const OverflowTable = ({
                   .filter((header) => header !== "subcategory")
                   .filter((header) => header !== "gender")
                   .filter((header) => header !== "family")
+                  .filter((header) => header !== "updatedAt")
                   .map((header) => (
                     <td
                       key={`${item._id}-${header}`}
                       className={`px-4 py-2 overflow-auto max-[600px]:text-xs max-[600px]:px-2 ${
                         header === "price" || header === "balance"
-                          ? "min-w-[100px]"
+                          ? "max-[600px]:min-w-[80px]"
+                          : header === "itemname"
+                          ? "min-w-[200px] max-[600px]:min-w-[100px] capitalize"
+                          : header === "description"
+                          ? " lowercase"
                           : "min-w-[200px] max-[600px]:min-w-[100px]"
                       }`}
                     >

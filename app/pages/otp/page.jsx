@@ -106,6 +106,11 @@ const OTP = () => {
           >
             ENTER YOUR OTP
           </h1>
+          <p className="text-yellow-700">
+            {" "}
+            OTPs are sent to your mail. Check your mail for four digit numbers
+            sent buy Huxlogs
+          </p>
           <div className="flex gap-6 max-[280px]:gap-2 max-[230px]:flex-col">
             {otpInputs.map((value, index) => (
               <input
