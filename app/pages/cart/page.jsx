@@ -24,7 +24,7 @@ const Cart = () => {
 
   const [loading, setLoading] = React.useState(false);
   const [isBitcoin, setIsBitcoin] = React.useState(true);
-  const [isSolana, setSolana] = React.useState(false);
+  // const [isSolana, setSolana] = React.useState(false);
   const [isLitecoin, setLitecoin] = React.useState(false);
   const [isUsdt, setUsdt] = React.useState(false);
   const [cartItems, setCartItems] = React.useState([]);
@@ -33,9 +33,9 @@ const Cart = () => {
   const handleCopy = () => {
     const address = isBitcoin
       ? "bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem"
-      : isSolana
-      ? "6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY"
-      : isLitecoin
+      : // : isSolana
+      // ? "6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY"
+      isLitecoin
       ? "LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz"
       : isUsdt
       ? "TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE"
@@ -53,28 +53,28 @@ const Cart = () => {
   const toggleCurrency = () => {
     if (isBitcoin) {
       setIsBitcoin(false);
-      setSolana(true);
-      setLitecoin(false);
-      setUsdt(false);
-    }
-
-    if (isSolana) {
-      setIsBitcoin(false);
-      setSolana(false);
+      // setSolana(true);
       setLitecoin(true);
       setUsdt(false);
     }
 
+    // if (isSolana) {
+    //   setIsBitcoin(false);
+    //   setSolana(false);
+    //   setLitecoin(true);
+    //   setUsdt(false);
+    // }
+
     if (isLitecoin) {
       setIsBitcoin(false);
-      setSolana(false);
+      // setSolana(false);
       setLitecoin(false);
       setUsdt(true);
     }
 
     if (isUsdt) {
       setIsBitcoin(true);
-      setSolana(false);
+      // setSolana(false);
       setLitecoin(false);
       setUsdt(false);
     }
@@ -168,15 +168,36 @@ const Cart = () => {
             </button>
             <span>
               current currency:{" "}
-              {isBitcoin
-                ? `BTC <br /> <p>send only to this address via the Bitcoin network. Sending any other token will result in loss of assets.</p>`
-                : isLitecoin
-                ? `LTC <br /> <p>send only Litecoin (LTC) to this address. Sending any other token will result in loss of assets.</p>`
-                : isSolana
-                ? `SOL <br /> <p>send only Solana (SOL) to this address. Sending any other token will result in loss of assets.</p>`
-                : isUsdt
-                ? `USDT <br /> <p>send only Tether (Tron/TRC 20) to this address via BEP-20 network. Sending any other token will result in loss of assets.</p>`
-                : "N/A"}
+              {isBitcoin ? (
+                <span>
+                  BTC <br />{" "}
+                  <p>
+                    send only to this address via the Bitcoin network. Sending
+                    any other token will result in loss of assets.
+                  </p>
+                </span>
+              ) : isLitecoin ? (
+                <span>
+                  LTC <br />{" "}
+                  <p>
+                    send only Litecoin (LTC) to this address. Sending any other
+                    token will result in loss of assets.
+                  </p>
+                </span>
+              ) : // : isSolana
+              // ? `SOL <br /> <p>send only Solana (SOL) to this address. Sending any other token will result in loss of assets.</p>`
+              isUsdt ? (
+                <span>
+                  USDT <br />{" "}
+                  <p>
+                    send only Tether (Tron/TRC 20) to this address via BEP-20
+                    network. Sending any other token will result in loss of
+                    assets.
+                  </p>
+                </span>
+              ) : (
+                "N/A"
+              )}
             </span>
           </div>
 
@@ -185,14 +206,6 @@ const Cart = () => {
               <Image
                 src="/bitcoin.jpeg"
                 alt="Bitcoin logo"
-                width={200}
-                height={0}
-                priority
-              />
-            ) : isSolana ? (
-              <Image
-                src="/solana.jpeg"
-                alt="Solana logo"
                 width={200}
                 height={0}
                 priority
@@ -222,10 +235,6 @@ const Cart = () => {
             {isBitcoin ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
                 bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem
-              </span>
-            ) : isSolana ? (
-              <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
-                6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY
               </span>
             ) : isLitecoin ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">

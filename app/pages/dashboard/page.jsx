@@ -58,7 +58,7 @@ const Dashboard = () => {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 6;
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
