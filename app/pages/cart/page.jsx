@@ -251,7 +251,7 @@ const Cart = () => {
           } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
         >
           <h3 className="text-lg font-semibold mb-4">Shopping cart</h3>
-          <div className=" overflow-auto h-[60%]">
+          <div className=" overflow-auto h-[45%]">
             {loading ? (
               <FontAwesomeIcon className=" animate-spin" icon={faSpinner} />
             ) : cartItems.length > 0 ? (
@@ -310,7 +310,7 @@ const Cart = () => {
             <a className="text-green-600" href="T.me/huxlogs_support">
               admin
             </a>{" "}
-            to make amanual payment
+            to make a manual payment
           </p>
         </div>
       </div>
