@@ -68,7 +68,7 @@ const OTP = () => {
       <Link href={"/"} className="absolute top-2 left-2">
         {dark ? (
           <Image
-            src="/three.png"
+            src="/one.png"
             alt="App logo"
             width={120}
             height={0}
