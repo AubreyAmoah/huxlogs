@@ -19,6 +19,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import ConfirmPurchase from "@/app/{components}/ConfirmPurchase";
 
+/**original walltes */
+// btc bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem
+// ltc LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz
+// usdt TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE
+
 const Cart = () => {
   const { dark } = React.useContext(ThemeContext);
 
@@ -32,11 +37,11 @@ const Cart = () => {
 
   const handleCopy = () => {
     const address = isBitcoin
-      ? "bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem"
+      ? "bc1qm0tzcundsthvvnng5swf676n4jws232fh3n4xz"
       : // : isSolana
       // ? "6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY"
       isLitecoin
-      ? "LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz"
+      ? "ltc1qjqletjuk36qysr7v6exl0s52g7x3cg6anyegre"
       : isUsdt
       ? "TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE"
       : address;
