@@ -37,13 +37,13 @@ const Cart = () => {
 
   const handleCopy = () => {
     const address = isBitcoin
-      ? "bc1qm0tzcundsthvvnng5swf676n4jws232fh3n4xz"
+      ? "bc1qa4vat7ajreyk6ntr90vk9n63lx5470wfjhnd8a"
       : // : isSolana
       // ? "6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY"
       isLitecoin
-      ? "ltc1qjqletjuk36qysr7v6exl0s52g7x3cg6anyegre"
+      ? "LU78bV9WK9uzXF1ugXY3WGY1MuDTiT7Srf"
       : isUsdt
-      ? "TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE"
+      ? "TZ7PBsucevwJt3VQyXHKZGnoKGZfHcUYXN"
       : address;
     navigator.clipboard
       .writeText(address)
@@ -239,15 +239,15 @@ const Cart = () => {
           <div className="text-center flex gap-2 items-center w-full mt-4 justify-center text-xl max-[406px]:text-base max-[320px]:flex-wrap">
             {isBitcoin ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
-                bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem
+                bc1qa4vat7ajreyk6ntr90vk9n63lx5470wfjhnd8a
               </span>
             ) : isLitecoin ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
-                LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz
+                LU78bV9WK9uzXF1ugXY3WGY1MuDTiT7Srf
               </span>
             ) : isUsdt ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
-                TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE
+                TZ7PBsucevwJt3VQyXHKZGnoKGZfHcUYXN
               </span>
             ) : (
               ""
