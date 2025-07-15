@@ -185,8 +185,8 @@ const Cart = () => {
                     token will result in loss of assets.
                   </p>
                 </span>
-              ) : // : isSolana
-                // ? `SOL <br /> <p>send only Solana (SOL) to this address. Sending any other token will result in loss of assets.</p>`
+              ) : isXrp
+                ? `XRP <br /> <p>send only Xrp to this address. Sending any other token will result in loss of assets.</p>` :
                 isSolana ? (
                   <span>
                     Solana <br />{" "}
