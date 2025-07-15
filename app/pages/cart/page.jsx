@@ -22,29 +22,29 @@ import ConfirmPurchase from "@/app/{components}/ConfirmPurchase";
 /**original walltes */
 // btc bc1qf5s3ykvmsk2dh5ua8rkfacx77097vml05hxwem
 // ltc LX1vGLx3W7ZQPX832tyRystvXVTp8HtrUz
-// usdt TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE
+// Solana TFcFTaGGA5DD8CThXzqyaTYQ9yCoaKpQBE
 
 const Cart = () => {
   const { dark } = React.useContext(ThemeContext);
 
   const [loading, setLoading] = React.useState(false);
   const [isBitcoin, setIsBitcoin] = React.useState(true);
-  // const [isSolana, setSolana] = React.useState(false);
+  const [isXrp, setXrp] = React.useState(false);
   const [isLitecoin, setLitecoin] = React.useState(false);
-  const [isUsdt, setUsdt] = React.useState(false);
+  const [isSolana, setSolana] = React.useState(false);
   const [cartItems, setCartItems] = React.useState([]);
   const [visible, setVisible] = React.useState(false);
 
   const handleCopy = () => {
     const address = isBitcoin
-      ? "bc1qa4vat7ajreyk6ntr90vk9n63lx5470wfjhnd8a"
-      : // : isSolana
-      // ? "6pj2bqQHxvs1u5gq9jQ7H4DXvFUjaARougCv726WyLtY"
-      isLitecoin
-      ? "LU78bV9WK9uzXF1ugXY3WGY1MuDTiT7Srf"
-      : isUsdt
-      ? "TZ7PBsucevwJt3VQyXHKZGnoKGZfHcUYXN"
-      : address;
+      ? "bc1qtgc7aspcyvmx36hdpzkpja2apjg64y77hyx0yf"
+      : isXrp
+        ? "rUpsa3hPpg1vDMFaJy5Gimxr34TzUbv6p6" :
+        isLitecoin
+          ? "LQi13HXeCkahiuzwWZsNRNYSyiTaomKyV8"
+          : isSolana
+            ? "4ShTKp5Mxph1fTenuRYgzCwbDmYAWk7A4NnXibrYTepV"
+            : address;
     navigator.clipboard
       .writeText(address)
       .then(() => {
@@ -58,30 +58,30 @@ const Cart = () => {
   const toggleCurrency = () => {
     if (isBitcoin) {
       setIsBitcoin(false);
-      // setSolana(true);
       setLitecoin(true);
-      setUsdt(false);
+      setSolana(false);
+      setXrp(false);
     }
-
-    // if (isSolana) {
-    //   setIsBitcoin(false);
-    //   setSolana(false);
-    //   setLitecoin(true);
-    //   setUsdt(false);
-    // }
 
     if (isLitecoin) {
       setIsBitcoin(false);
-      // setSolana(false);
+      setXrp(false);
       setLitecoin(false);
-      setUsdt(true);
+      setSolana(true);
     }
 
-    if (isUsdt) {
-      setIsBitcoin(true);
-      // setSolana(false);
+    if (isSolana) {
+      setIsBitcoin(false);
+      setXrp(true);
       setLitecoin(false);
-      setUsdt(false);
+      setSolana(false);
+    }
+
+    if (isXrp) {
+      setIsBitcoin(true);
+      setXrp(false);
+      setLitecoin(false);
+      setSolana(false);
     }
   };
 
@@ -128,15 +128,13 @@ const Cart = () => {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${
-        dark ? "bg-[#191F28] text-zinc-50" : "bg-zinc-50 text-black"
-      } relative`}
+      className={`min-h-screen bg-gradient-to-b p-6 max-[450px]:p-4 max-[400px]:p-2 max-[320px]:p-0 ${dark ? "bg-[#191F28] text-zinc-50" : "bg-zinc-50 text-black"
+        } relative`}
     >
       {/* Header Navigation */}
       <h1
-        className={`${
-          dark ? "text-violet-600" : "text-blue-400"
-        } mb-8 capitalize text-xl max-[320px]:text-center max-[320px]:text-xl max-[320px]:pt-4`}
+        className={`${dark ? "text-violet-600" : "text-blue-400"
+          } mb-8 capitalize text-xl max-[320px]:text-center max-[320px]:text-xl max-[320px]:pt-4`}
       >
         <div className="flex gap-4 items-center">
           <Link href={"/pages/dashboard"}>
@@ -151,9 +149,8 @@ const Cart = () => {
       <div className={`flex flex-col lg:flex-row gap-6 max-[320px]:gap-0`}>
         {/* Payment Details Form */}
         <div
-          className={`${
-            dark ? "bg-[#232c38]" : "bg-white"
-          } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
+          className={`${dark ? "bg-[#232c38]" : "bg-white"
+            } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
         >
           <div className="flex flex-col w-full items-center mb-2 max-[530px]:text-sm">
             <h3
@@ -163,11 +160,10 @@ const Cart = () => {
             </h3>
             <button
               onClick={toggleCurrency}
-              className={`${
-                dark
-                  ? "rounded-md border border-violet-600 text-zinc-50 bg-violet-600 px-4 py-3 max-[530px]:px-2 max-[530px]:py-2 hover:bg-violet-800 hover:text-zinc-50"
-                  : "rounded-md border border-blue-400 text-zinc-50 bg-blue-400 px-4 py-3 max-[530px]:px-2 max-[530px]:py-2 hover:bg-blue-600 hover:text-zinc-50"
-              }`}
+              className={`${dark
+                ? "rounded-md border border-violet-600 text-zinc-50 bg-violet-600 px-4 py-3 max-[530px]:px-2 max-[530px]:py-2 hover:bg-violet-800 hover:text-zinc-50"
+                : "rounded-md border border-blue-400 text-zinc-50 bg-blue-400 px-4 py-3 max-[530px]:px-2 max-[530px]:py-2 hover:bg-blue-600 hover:text-zinc-50"
+                }`}
             >
               change currency
             </button>
@@ -190,19 +186,19 @@ const Cart = () => {
                   </p>
                 </span>
               ) : // : isSolana
-              // ? `SOL <br /> <p>send only Solana (SOL) to this address. Sending any other token will result in loss of assets.</p>`
-              isUsdt ? (
-                <span>
-                  USDT <br />{" "}
-                  <p>
-                    send only Tether (Tron/TRC 20) to this address via BEP-20
-                    network. Sending any other token will result in loss of
-                    assets.
-                  </p>
-                </span>
-              ) : (
-                "N/A"
-              )}
+                // ? `SOL <br /> <p>send only Solana (SOL) to this address. Sending any other token will result in loss of assets.</p>`
+                isSolana ? (
+                  <span>
+                    Solana <br />{" "}
+                    <p>
+                      send only Tether (Tron/TRC 20) to this address via BEP-20
+                      network. Sending any other token will result in loss of
+                      assets.
+                    </p>
+                  </span>
+                ) : (
+                  "N/A"
+                )}
             </span>
           </div>
 
@@ -223,9 +219,17 @@ const Cart = () => {
                 height={0}
                 priority
               />
-            ) : isUsdt ? (
+            ) : isSolana ? (
               <Image
-                src="/usdt.jpeg"
+                src="/solana.jpeg"
+                alt="Litecoin logo"
+                width={200}
+                height={0}
+                priority
+              />
+            ) : isXrp ? (
+              <Image
+                src="/xrp.jpeg"
                 alt="Litecoin logo"
                 width={200}
                 height={0}
@@ -239,15 +243,19 @@ const Cart = () => {
           <div className="text-center flex gap-2 items-center w-full mt-4 justify-center text-xl max-[406px]:text-base max-[320px]:flex-wrap">
             {isBitcoin ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
-                bc1qa4vat7ajreyk6ntr90vk9n63lx5470wfjhnd8a
+                bc1qtgc7aspcyvmx36hdpzkpja2apjg64y77hyx0yf
               </span>
             ) : isLitecoin ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
-                LU78bV9WK9uzXF1ugXY3WGY1MuDTiT7Srf
+                LQi13HXeCkahiuzwWZsNRNYSyiTaomKyV8
               </span>
-            ) : isUsdt ? (
+            ) : isSolana ? (
               <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
-                TZ7PBsucevwJt3VQyXHKZGnoKGZfHcUYXN
+                4ShTKp5Mxph1fTenuRYgzCwbDmYAWk7A4NnXibrYTepV
+              </span>
+            ) : isXrp ? (
+              <span className="overflow-hidden max-[560px]:text-ellipsis whitespace-nowrap w-[240px] max-[560px]:w-[180px]">
+                rUpsa3hPpg1vDMFaJy5Gimxr34TzUbv6p6
               </span>
             ) : (
               ""
@@ -260,9 +268,8 @@ const Cart = () => {
 
         {/* Shopping Cart Summary */}
         <div
-          className={`${
-            dark ? "bg-[#232c38]" : "bg-white"
-          } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
+          className={`${dark ? "bg-[#232c38]" : "bg-white"
+            } rounded-lg shadow-lg p-6 w-full lg:w-1/2 max-[320px]:rounded-none`}
         >
           <h3 className="text-lg font-semibold mb-4">Shopping cart</h3>
           <div className=" overflow-auto h-[45%]">
@@ -305,11 +312,10 @@ const Cart = () => {
           {cartItems.length > 0 ? (
             <button
               onClick={() => setVisible(true)}
-              className={`${
-                dark
-                  ? "rounded-md border border-violet-600 text-zinc-50 bg-violet-600 px-4 py-3 hover:bg-violet-800 hover:text-zinc-50"
-                  : "rounded-md border border-blue-400 text-zinc-50 bg-blue-400 px-4 py-3 hover:bg-blue-600 hover:text-zinc-50"
-              } w-full mt-6`}
+              className={`${dark
+                ? "rounded-md border border-violet-600 text-zinc-50 bg-violet-600 px-4 py-3 hover:bg-violet-800 hover:text-zinc-50"
+                : "rounded-md border border-blue-400 text-zinc-50 bg-blue-400 px-4 py-3 hover:bg-blue-600 hover:text-zinc-50"
+                } w-full mt-6`}
             >
               Confirm payment
             </button>
