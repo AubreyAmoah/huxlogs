@@ -186,7 +186,7 @@ const Cart = () => {
                   </p>
                 </span>
               ) : isXrp
-                ? `XRP <br /> <p>send only Xrp to this address. Sending any other token will result in loss of assets.</p>` :
+                ? <span><br /> <p>send only Xrp to this address. Sending any other token will result in loss of assets.</p></span> :
                 isSolana ? (
                   <span>
                     Solana <br />{" "}
